@@ -1,0 +1,950 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Eclipsia</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Grenze:wght@500;600;700&family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#15131d; --bg2:#1b1826; --surface:#221f2f; --surface2:#2c2840; --line:#3b3652;
+  --text:#ece6d8; --muted:#a39db2; --gold:#e6b85c; --gold2:#f4d58d; --danger:#e8675d; --heal:#6fcf8e;
+  --ember:#e8663a; --crimson:#c23b4e; --parch:#e9dfc7; --ink:#2a2233;
+  --sol:#f08a3c; --marea:#4cc3c9; --raiz:#8cc152; --umbra:#b184f0; --neutral:#c9bfa8;
+  --fd:'Grenze','Palatino Linotype',Georgia,serif;
+  --fb:'Alegreya Sans','Segoe UI',system-ui,sans-serif;
+  --fm:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+}
+html,body{height:100%}
+body{background:var(--bg);color:var(--text);font-family:var(--fb);font-size:15px;line-height:1.45;padding-inline:16px;
+  background-image:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(230,184,92,.07),transparent 70%)}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+button{font:inherit;color:inherit}
+.wrap{max-width:1320px;margin:0 auto;padding-block:14px 32px}
+.f-sol{--fc:var(--sol)} .f-marea{--fc:var(--marea)} .f-raiz{--fc:var(--raiz)} .f-umbra{--fc:var(--umbra)} .f-neutral{--fc:var(--neutral)}
+
+/* header */
+header.top{display:flex;align-items:center;gap:16px;flex-wrap:wrap;padding-block:6px 14px}
+.brand{display:flex;align-items:center;gap:10px;margin-right:auto}
+.brand h1{font:700 30px/1 var(--fd);letter-spacing:.06em;margin:0;color:var(--gold2)}
+.brand small{display:block;font:500 11px var(--fm);color:var(--muted);letter-spacing:.12em;text-transform:uppercase}
+.tabs{display:flex;gap:4px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:4px}
+.tabs button{border:0;background:none;padding:6px 14px;border-radius:999px;cursor:pointer;color:var(--muted);font-weight:500}
+.tabs button[aria-selected="true"]{background:var(--surface2);color:var(--text)}
+.tabs button:focus-visible,.btn:focus-visible,.power:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.btn{border:1px solid var(--line);background:var(--surface);padding:7px 14px;border-radius:8px;cursor:pointer;font-weight:500}
+.btn:hover{border-color:var(--gold)}
+.btn.primary{background:var(--gold);color:#241b10;border-color:var(--gold);font-weight:700}
+.btn.primary:hover{background:var(--gold2)}
+
+/* mesa layout */
+.mesa{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:18px;align-items:start}
+.table{container-type:inline-size;position:relative;border:1px solid var(--line);border-radius:18px;padding:12px;
+  background:radial-gradient(ellipse 90% 60% at 50% 50%,#2b2542 0%,#1c1929 65%,#181523 100%);overflow:hidden;
+  --gap:8px;}
+.table::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:0;transition:opacity 1.2s;
+  background:radial-gradient(ellipse 90% 60% at 50% 50%,rgba(60,70,160,.28),rgba(8,8,30,.45))}
+.table.night::before{opacity:1}
+.table::after{content:"";position:absolute;inset:0;pointer-events:none;opacity:.6;transition:opacity 1.2s;
+  background:radial-gradient(ellipse 60% 40% at 50% 50%,rgba(240,160,70,.10),transparent 70%)}
+.table.night::after{opacity:0}
+.table > *{position:relative;z-index:1}
+.side{display:flex;flex-direction:column;gap:14px;position:sticky;top:12px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px}
+.panel h3{font:600 13px var(--fm);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+
+/* hero rows */
+.hrow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:space-between}
+.hero{display:flex;align-items:center;gap:12px;border-radius:14px;padding:4px 10px 4px 4px;cursor:default;min-width:0}
+.portrait{position:relative;width:64px;height:64px;border-radius:50%;background-size:cover;background-position:center;
+  border:3px solid var(--fc);box-shadow:0 0 0 3px rgba(0,0,0,.35),0 0 18px color-mix(in srgb,var(--fc) 40%,transparent);flex:none}
+.portrait .hp{position:absolute;right:-8px;bottom:-6px;min-width:28px;height:28px;padding:0 5px;border-radius:14px;background:var(--crimson);
+  color:#fff;font:700 17px/28px var(--fd);text-align:center;border:2px solid var(--bg2);font-variant-numeric:tabular-nums}
+.hinfo{min-width:0}
+.hname{font:600 19px/1 var(--fd)}
+.htitle{font-size:12px;color:var(--muted);font-style:italic}
+.embers{display:flex;gap:3px;margin-top:5px;flex-wrap:wrap;align-items:center}
+.embers i{width:11px;height:11px;border-radius:50%;background:#3a2c35;border:1px solid #5a4050}
+.embers i.on{background:radial-gradient(circle at 35% 30%,#ffc096,var(--ember) 60%,#8a2a0f);border-color:#ffb07a;box-shadow:0 0 6px rgba(232,102,58,.7)}
+.embers b{font:500 11px var(--fm);color:var(--muted);margin-left:4px;font-variant-numeric:tabular-nums}
+.meta{font:400 11px var(--fm);color:var(--muted);margin-top:3px}
+.hero.tgt{cursor:crosshair;box-shadow:0 0 0 2px var(--danger);animation:pulseT 1s infinite}
+.hero.tgt .portrait{border-color:var(--danger)}
+.power{display:grid;grid-template-columns:auto 1fr;column-gap:8px;align-items:center;text-align:left;max-width:240px;
+  background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:6px 10px;cursor:pointer}
+.power .pc{grid-row:span 2;width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font:700 15px var(--fd);color:#fff8ee;
+  background:radial-gradient(circle at 35% 30%,#ffb07a,var(--ember) 60%,#8a2a0f)}
+.power .pn{font:600 15px/1.1 var(--fd)}
+.power .pt{font-size:11.5px;color:var(--muted);line-height:1.25}
+.power.ready{border-color:var(--gold);box-shadow:0 0 12px rgba(230,184,92,.3)}
+.power.ready:hover{background:var(--surface2)}
+.power.sel{background:var(--surface2);box-shadow:0 0 0 2px var(--gold)}
+.power:disabled{cursor:default;opacity:.55}
+.power.foe{cursor:default;opacity:.8}
+.power.foe.used{opacity:.4}
+
+.ehand{display:flex;gap:4px;justify-content:flex-end;flex-wrap:wrap}
+.back{width:22px;height:31px;border-radius:4px;border:1px solid #4b4466;
+  background:repeating-linear-gradient(45deg,#2a2440 0 4px,#221d36 4px 8px);box-shadow:inset 0 0 0 2px #1a1628}
+
+/* boards */
+.board{--n:4;--uw:min(100px,calc((100cqw - 24px - (var(--n) - 1) * var(--gap)) / var(--n)));display:flex;justify-content:center;gap:var(--gap);min-height:calc(min(100px,calc((100cqw - 24px) / 6 - 8px)) * 1.25 + 26px);align-items:center;padding-block:12px}
+.board .empty{font:italic 13px var(--fb);color:#6f6886;margin:0}
+.mid{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding-block:8px;border-block:1px solid rgba(230,184,92,.18)}
+.phase{display:flex;align-items:center;gap:10px}
+.phase .rt{font:500 12px var(--fm);color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.phase .rt b{display:block;font:600 20px/1 var(--fd);color:var(--text);letter-spacing:0;text-transform:none}
+#hint{flex:1;min-width:180px;font-size:13.5px;color:var(--muted);text-align:center}
+#endBtn{min-width:150px}
+#endBtn.urge{animation:urge 1.4s infinite}
+#endBtn:disabled{opacity:.5;cursor:default;background:var(--surface);color:var(--muted);border-color:var(--line)}
+
+#disc{flex:none;overflow:hidden}
+#disc .moon{fill:var(--bg2);transform:translateX(40px);transition:transform 1s cubic-bezier(.6,0,.3,1)}
+#disc .corona{opacity:.35;transition:opacity 1s;transform-origin:30px 30px}
+#disc.night .moon{transform:translateX(0)}
+#disc.night .corona{opacity:1;animation:spin 18s linear infinite}
+
+.phand{display:flex;gap:8px;overflow-x:auto;padding:16px 4px 8px;justify-content:safe center;--cw:128px;scrollbar-width:thin}
+.phand .empty{font:italic 13px var(--fb);color:#6f6886;margin:0;padding-block:30px}
+
+/* card */
+.card{container-type:inline-size;width:var(--cw,128px);aspect-ratio:5/7;position:relative;flex:none;transition:transform .15s}
+.face{position:absolute;inset:0;border-radius:7cqw;border:2cqw solid var(--fc);background:#1d1a27;display:flex;flex-direction:column;
+  box-shadow:0 6px 14px rgba(0,0,0,.45)}
+.face .art{height:45%;background-size:cover;background-position:center;border-radius:5cqw 5cqw 0 0;border-bottom:1.2cqw solid var(--fc)}
+.face.spell .art{border-radius:5cqw 5cqw 40% 40% / 5cqw 5cqw 14% 14%}
+.face .cost{position:absolute;top:-4cqw;left:-4cqw;width:22cqw;height:22cqw;border-radius:50%;display:grid;place-items:center;z-index:2;
+  background:radial-gradient(circle at 35% 30%,#ffb07a,var(--ember) 60%,#8a2a0f);border:1.5cqw solid #1d1a27;color:#fff8ee;font:700 14cqw/1 var(--fd)}
+.face .nm{font:600 11cqw/1.02 var(--fd);padding:3cqw 5cqw 0;text-align:center;text-wrap:balance}
+.face .tl{font:500 5.6cqw/1.3 var(--fb);text-transform:uppercase;letter-spacing:.1em;color:var(--fc);text-align:center;margin-top:1cqw}
+.face .tx{margin:2cqw 5cqw 13cqw;padding:3cqw 4cqw;background:var(--parch);color:var(--ink);border-radius:3cqw;font:500 7.9cqw/1.2 var(--fb);flex:1;min-height:0;overflow:hidden}
+.face.spell .tx{margin-bottom:9cqw}
+.face .tx b{font-weight:700}
+.face .tx i{color:#6b6070}
+.face .s,.unit .s{position:absolute;bottom:-4cqw;border-radius:50%;display:grid;place-items:center;font-family:var(--fd);font-weight:700;z-index:2;font-variant-numeric:tabular-nums}
+.face .s{width:21cqw;height:21cqw;font-size:13.5cqw;border:1.5cqw solid #1d1a27}
+.s.atk{left:-4cqw;background:var(--gold);color:#2a1d08}
+.s.hp{right:-4cqw;background:var(--crimson);color:#fff}
+.face .no{position:absolute;bottom:2.5cqw;left:0;right:0;text-align:center;font:500 4.8cqw var(--fm);color:#7a728e;letter-spacing:.05em}
+.card.hand{cursor:pointer}
+.card.hand.playable .face{box-shadow:0 0 0 2px var(--heal),0 0 16px rgba(111,207,142,.45),0 6px 14px rgba(0,0,0,.45)}
+.card.hand:hover{transform:translateY(-6px)}
+.card.hand.sel{transform:translateY(-12px)}
+.card.hand.sel .face{box-shadow:0 0 0 3px var(--gold2),0 0 20px rgba(244,213,141,.6)}
+.card.shake{animation:shake .35s}
+
+/* unit */
+.unit{container-type:inline-size;width:var(--uw);aspect-ratio:4/5;position:relative;flex:none;cursor:default;transition:transform .2s}
+.unit .uf{position:absolute;inset:0;border-radius:12cqw;border:3.5cqw solid var(--fc);background-size:cover;background-position:center;
+  box-shadow:0 6px 12px rgba(0,0,0,.5);transition:box-shadow .2s,filter .3s}
+.unit.guardian .uf{border-width:5.5cqw;border-radius:14cqw 14cqw 50% 50% / 14cqw 14cqw 32% 32%}
+.unit.shielded .uf{box-shadow:0 0 0 3cqw rgba(244,213,141,.75),0 0 16px rgba(244,213,141,.7),0 6px 12px rgba(0,0,0,.5)}
+.unit .s{width:32cqw;height:32cqw;font-size:21cqw;border:2.5cqw solid var(--bg2);bottom:-8cqw}
+.unit .s.atk{left:-6cqw} .unit .s.hp{right:-6cqw}
+.s.atk.boost{background:var(--gold2);box-shadow:0 0 10px var(--gold2)}
+.unit .s.hp.hurt{background:#7d1f2e;color:#ffc9c9}
+.unit .uname{position:absolute;left:8cqw;right:8cqw;bottom:22cqw;text-align:center;font:600 13cqw/1 var(--fd);text-shadow:0 1px 3px #000,0 0 6px #000;pointer-events:none}
+@container (max-width:66px){.unit .uname{display:none}}
+.unit .ukw{position:absolute;top:-6cqw;right:-6cqw;display:flex;flex-direction:column;gap:2cqw;z-index:2}
+.kw{display:grid;place-items:center;width:24cqw;height:24cqw;border-radius:50%;background:var(--bg2);border:2cqw solid var(--line)}
+.kw svg{width:62%;height:62%}
+.kw-guardian{color:var(--gold2)} .kw-furia{color:#ffb35c} .kw-escudo{color:var(--gold2)} .kw-veneno{color:#9be07a} .kw-vital{color:#ff7f8f}
+.unit .zz{position:absolute;top:6cqw;left:10cqw;font:italic 600 18cqw var(--fd);color:#cfc8e8;opacity:.8;animation:zz 2s infinite}
+.unit.asleep .uf{filter:saturate(.55) brightness(.82)}
+.unit.can{cursor:pointer}
+.unit.can .uf{box-shadow:0 0 0 2px var(--heal),0 0 16px rgba(111,207,142,.6),0 6px 12px rgba(0,0,0,.5)}
+.unit.sel{transform:translateY(-8px) scale(1.05)}
+.unit.sel .uf{box-shadow:0 0 0 3px var(--gold2),0 0 22px rgba(244,213,141,.7)}
+.unit.tgt{cursor:crosshair}
+.unit.tgt .uf{outline:2px dashed var(--danger);outline-offset:4px;animation:pulseT 1s infinite}
+.unit.lunge-up{transform:translateY(-22px) scale(1.06)}
+.unit.lunge-down{transform:translateY(22px) scale(1.06)}
+.unit.struck .uf,.hero.struck .portrait{animation:struck .35s}
+.unit.dying{animation:die .45s forwards}
+.float{position:absolute;left:50%;top:25%;transform:translateX(-50%);font:700 24px var(--fd);pointer-events:none;z-index:9;white-space:nowrap;
+  text-shadow:0 2px 4px #000,0 0 10px #000;animation:rise 1.1s forwards}
+.float.dmg{color:#ff8a7e} .float.heal{color:#8ff0ad} .float.buff{color:var(--gold2);font-size:18px} .float.shield{color:var(--gold2);font-size:16px} .float.info{color:#f7c9a8;font-size:15px}
+
+/* side */
+#preview{display:flex;flex-direction:column;align-items:center;gap:10px;min-height:120px}
+#preview .card{--cw:200px}
+.pinfo{font-size:13px;color:var(--muted);width:100%}
+.pinfo p{margin:0 0 6px}
+.pinfo b{color:var(--text)}
+.pinfo .fl{font-style:italic;color:#8f88a3;border-left:2px solid var(--line);padding-left:8px}
+.pinfo .live{color:var(--text);background:var(--surface2);padding:6px 8px;border-radius:8px}
+.phint{font-size:13px;color:var(--muted);text-align:center;margin:0}
+#log{list-style:none;margin:0;padding:0;max-height:300px;overflow-y:auto;font:400 12px/1.45 var(--fm);color:#bdb6cc}
+#log li{padding:4px 0;border-bottom:1px solid rgba(59,54,82,.6)}
+#log li.turn{color:var(--gold);padding-top:8px}
+#log li.phase{color:#9fb4ff}
+#log li.dim{color:#7f7894}
+#log b{color:var(--text);font-weight:500}
+
+/* banner + overlays */
+#banner{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:20;pointer-events:none;opacity:0;
+  font:700 clamp(28px,7cqw,54px)/1 var(--fd);color:var(--gold2);letter-spacing:.04em;text-shadow:0 0 30px rgba(230,184,92,.6),0 3px 8px #000;white-space:nowrap}
+#banner.show{animation:banner 1.5s forwards}
+.overlay{position:fixed;inset:0;z-index:50;background:rgba(10,9,16,.78);backdrop-filter:blur(4px);display:grid;place-items:center;padding:16px;overflow-y:auto}
+.modal{background:var(--bg2);border:1px solid var(--line);border-radius:18px;padding:22px;max-width:980px;width:100%}
+.modal h2{font:700 34px/1.05 var(--fd);margin:0 0 6px;color:var(--gold2);text-wrap:balance}
+.modal .lead{color:var(--muted);margin:0 0 18px;max-width:65ch}
+.heroes{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.htile{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;cursor:pointer;text-align:left;padding:0;transition:transform .15s,border-color .15s}
+.htile:hover,.htile:focus-visible{transform:translateY(-3px);border-color:var(--fc);outline:none}
+.htile .hart{aspect-ratio:4/3;background-size:cover;background-position:center;border-bottom:3px solid var(--fc)}
+.htile .hb{padding:12px;display:flex;flex-direction:column;gap:6px;flex:1}
+.htile .hn{font:600 22px/1 var(--fd)}
+.htile .ht{font-size:12px;color:var(--fc);text-transform:uppercase;letter-spacing:.1em;font-weight:500}
+.htile .hl{font-size:13px;color:var(--muted);font-style:italic;flex:1}
+.htile .hp2{font-size:12.5px;background:var(--bg2);border-radius:8px;padding:6px 8px}
+.htile .hp2 b{font-family:var(--fd);font-size:14px}
+.endbox{text-align:center;max-width:460px}
+.endbox .row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+#peek{position:fixed;top:calc(env(safe-area-inset-top,0px) + 10px);right:12px;z-index:40;pointer-events:none;opacity:0;transition:opacity .2s}
+#peek.on{opacity:1}
+#peek .card{--cw:150px}
+
+/* rules + gallery */
+.doc{max-width:760px}
+.doc h2{font:700 36px/1.05 var(--fd);color:var(--gold2);margin:8px 0 6px}
+.doc h3{font:600 23px/1.1 var(--fd);margin:28px 0 8px;text-wrap:balance}
+.doc p,.doc li{max-width:68ch;color:#d9d2c4}
+.doc .lead{font-size:17px;color:var(--muted)}
+.doc dl{display:grid;grid-template-columns:max-content 1fr;gap:6px 14px;margin:0}
+.doc dt{font:600 16px var(--fd);color:var(--gold2)}
+.doc dd{margin:0;color:#d9d2c4}
+.tag{display:inline-block;font:500 11px var(--fm);letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 8px}
+.gal-sec{margin-bottom:34px}
+.gal-head{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;border-bottom:1px solid var(--line);padding-bottom:8px;margin-bottom:16px}
+.gal-head h3{font:700 28px/1 var(--fd);margin:0;color:var(--fc)}
+.gal-head p{margin:0;color:var(--muted);font-size:14px}
+.gal-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:18px 14px}
+.gal-grid .card{--cw:100%;width:100%}
+.gal-item{display:flex;flex-direction:column;gap:8px}
+.gal-item .fl{font-size:12px;font-style:italic;color:#8f88a3;margin:0}
+.gal-hero{display:flex;gap:14px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:16px;max-width:640px}
+.gal-hero .portrait{width:78px;height:78px}
+.gal-hero p{margin:2px 0 0;font-size:13px;color:var(--muted)}
+
+@keyframes pulseT{50%{outline-color:transparent;box-shadow:0 0 0 2px transparent}}
+@keyframes urge{50%{box-shadow:0 0 0 4px rgba(230,184,92,.35)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes shake{25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+@keyframes struck{30%{transform:translateX(-4px);filter:brightness(1.8)}70%{transform:translateX(4px)}}
+@keyframes die{to{opacity:0;transform:scale(.6) rotate(-8deg);filter:grayscale(1)}}
+@keyframes rise{0%{opacity:0;transform:translate(-50%,6px)}15%{opacity:1}100%{opacity:0;transform:translate(-50%,-34px)}}
+@keyframes zz{50%{transform:translateY(-3px);opacity:.4}}
+@keyframes banner{0%{opacity:0;transform:translate(-50%,-40%) scale(.9)}20%,70%{opacity:1;transform:translate(-50%,-50%) scale(1)}100%{opacity:0;transform:translate(-50%,-60%)}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+@media (max-width:980px){
+  .mesa{grid-template-columns:1fr}
+  .side{position:static}
+  #previewPanel{display:none}
+  .heroes{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:560px){
+  .phand{--cw:104px;justify-content:flex-start}
+  .table{padding:10px;--gap:5px}
+  .portrait{width:52px;height:52px}
+  .hname{font-size:17px}
+  .power{max-width:100%;flex:1}
+  #hint{order:3;flex-basis:100%}
+  #endBtn{margin-left:auto;min-width:0}
+  .brand h1{font-size:26px}
+  .modal{padding:16px}
+  .modal h2{font-size:28px}
+  .heroes{gap:8px}
+  .htile .hl{display:none}
+  .doc dl{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <header class="top">
+    <div class="brand">
+      <svg width="34" height="34" viewBox="0 0 60 60" aria-hidden="true"><circle cx="30" cy="30" r="25" fill="none" stroke="#f4d58d" stroke-width="2" stroke-dasharray="2 3"/><circle cx="30" cy="30" r="17" fill="#f4c56a"/><circle cx="37" cy="27" r="16" fill="#15131d"/></svg>
+      <div><h1>Eclipsia</h1><small>Demo jugable · reglamento v0.1</small></div>
+    </div>
+    <nav class="tabs" role="tablist">
+      <button role="tab" id="tab-mesa" data-tab="mesa" aria-selected="true">Mesa</button>
+      <button role="tab" id="tab-reglas" data-tab="reglas" aria-selected="false">Reglas</button>
+      <button role="tab" id="tab-cartas" data-tab="cartas" aria-selected="false">Cartas</button>
+    </nav>
+    <button class="btn" id="newBtn" type="button">Nueva partida</button>
+  </header>
+
+  <section id="view-mesa">
+    <div class="mesa">
+      <div class="table" id="table">
+        <div id="banner"></div>
+        <div class="hrow"><div id="eHero"></div><div class="ehand" id="eHand"></div></div>
+        <div class="board" id="eBoard"></div>
+        <div class="mid">
+          <div class="phase">
+            <svg id="disc" viewBox="0 0 60 60" width="52" height="52" aria-hidden="true">
+              <defs><radialGradient id="sunG"><stop offset="0" stop-color="#fff3d1"/><stop offset=".6" stop-color="#f4c56a"/><stop offset="1" stop-color="#e08a2e"/></radialGradient></defs>
+              <circle class="corona" cx="30" cy="30" r="25" fill="none" stroke="#f4d58d" stroke-width="1.6" stroke-dasharray="2 3"/>
+              <circle cx="30" cy="30" r="17" fill="url(#sunG)"/>
+              <circle class="moon" cx="30" cy="30" r="17.5"/>
+            </svg>
+            <div class="rt" id="roundTxt">Ronda 1 <b>Día</b></div>
+          </div>
+          <div id="hint">Elige un héroe para empezar.</div>
+          <button class="btn primary" id="endBtn" data-act="end" type="button" disabled>Terminar turno</button>
+        </div>
+        <div class="board" id="pBoard"></div>
+        <div class="hrow"><div id="pHero"></div></div>
+        <div class="phand" id="pHand"></div>
+      </div>
+      <aside class="side">
+        <div class="panel" id="previewPanel"><h3>Detalle</h3><div id="preview"><p class="phint">Pasa el cursor sobre una carta para verla en grande.</p></div></div>
+        <div class="panel"><h3>Crónica</h3><ul id="log"></ul></div>
+      </aside>
+    </div>
+  </section>
+
+  <section id="view-reglas" hidden>
+    <article class="doc">
+      <span class="tag">Reglamento v0.1</span>
+      <h2>Cómo se juega Eclipsia</h2>
+      <p class="lead">En Eclipsia el Sol y la Luna comparten un mismo cielo y se turnan el mundo cada ronda. Las criaturas son constelaciones caídas que los héroes invocan con brasas. Gana quien apague primero al héroe rival.</p>
+
+      <h3>Objetivo</h3>
+      <p>Reduce la vida del héroe rival de <b>25</b> a <b>0</b>.</p>
+
+      <h3>Mazo y mano inicial</h3>
+      <ul>
+        <li>Cada mazo tiene <b>20 cartas</b>: las 8 cartas de tu facción dos veces, más las 4 cartas neutrales una vez.</li>
+        <li>Tú empiezas la partida con 3 cartas. El rival va segundo y empieza con 4 para compensar.</li>
+        <li>Mano máxima: 9 cartas. Si robas con la mano llena, la carta se quema.</li>
+        <li>Si tu mazo se agota, cada robo te inflige fatiga: 1 de daño, luego 2, luego 3…</li>
+      </ul>
+
+      <h3>Brasas</h3>
+      <p>Las brasas son la energía del juego. Al empezar tu turno tu máximo sube en 1 (hasta 10) y se recargan todas. Cada carta indica su coste en la gema naranja.</p>
+
+      <h3>Tu turno</h3>
+      <ol>
+        <li>Robas 1 carta y recargas tus brasas.</li>
+        <li>Juegas cartas en el orden que quieras mientras te alcancen las brasas.</li>
+        <li>Puedes usar el poder de tu héroe una vez por turno (2 brasas).</li>
+        <li>Atacas con tus criaturas: cada una ataca una vez, a una criatura enemiga o al héroe rival.</li>
+        <li>Terminas el turno.</li>
+      </ol>
+
+      <h3>Criaturas y combate</h3>
+      <ul>
+        <li>Una criatura no puede atacar el turno en que entra, salvo que tenga <b>Furia</b>.</li>
+        <li>Cuando una criatura ataca a otra, ambas se infligen daño igual a su ataque. El héroe atacado no devuelve daño.</li>
+        <li>El daño se queda: una criatura herida no se cura sola.</li>
+        <li>Cada lado de la mesa admite hasta 6 criaturas.</li>
+      </ul>
+
+      <h3>El ciclo Día / Noche</h3>
+      <p>La partida empieza de <b>Día</b>. Al comienzo de cada ronda la fase se alterna. Las cartas con <b>Día: +X ataque</b> o <b>Noche: +X ataque</b> ganan ese ataque mientras la fase coincida (el número de ataque brilla). Algunas cartas fuerzan la fase: <i>Corona del Cenit</i> trae el Día y <i>Eclipse Total</i> trae la Noche hasta el siguiente cambio de ronda.</p>
+
+      <h3>Palabras clave</h3>
+      <dl id="kwList"></dl>
+
+      <h3>Facciones</h3>
+      <dl>
+        <dt>Sol</dt><dd>Agresiva. Daño directo, Furia y bonificaciones de Día.</dd>
+        <dt>Marea</dt><dd>Control. Guardianes resistentes, curación, robo de cartas y eliminación.</dd>
+        <dt>Raíz</dt><dd>Enjambre. Invoca muchas criaturas pequeñas y las refuerza.</dd>
+        <dt>Umbra</dt><dd>Noche. Veneno, Robo vital y cartas que cuestan tu propia vida.</dd>
+      </dl>
+
+      <h3>Qué falta en esta demo</h3>
+      <p>Mulligan, cartas legendarias únicas, construcción de mazos propia, partidas en línea y animaciones de combate completas. Todo el juego está definido como datos (cartas, héroes, efectos), así que cambiar reglas o personajes no requiere reescribir el motor.</p>
+    </article>
+  </section>
+
+  <section id="view-cartas" hidden><div id="gallery"></div></section>
+</div>
+
+<div id="peek"></div>
+<div class="overlay" id="overlay" hidden></div>
+
+<script>
+/* ============ DATOS ============ */
+const FAC={
+  sol:{n:'Sol',c:'#f08a3c',d:'#5a2414',k:'#2a1020',id:'S',desc:'Agresiva: daño directo, Furia y fuerza de Día.'},
+  marea:{n:'Marea',c:'#4cc3c9',d:'#0f3a4a',k:'#0b1a2e',id:'M',desc:'Control: guardianes, curación y robo de cartas.'},
+  raiz:{n:'Raíz',c:'#8cc152',d:'#26401f',k:'#121e17',id:'R',desc:'Enjambre: muchas criaturas y refuerzos.'},
+  umbra:{n:'Umbra',c:'#b184f0',d:'#2e1d4d',k:'#120d22',id:'U',desc:'Noche: veneno, robo vital y pactos de sangre.'},
+  neutral:{n:'Neutral',c:'#c9bfa8',d:'#3a3530',k:'#1c1a1f',id:'N',desc:'Cartas que entran en cualquier mazo.'}
+};
+const KW={
+  guardian:{n:'Guardián',d:'Los enemigos deben atacar a esta criatura antes que a cualquier otro objetivo.'},
+  furia:{n:'Furia',d:'Puede atacar el mismo turno en que entra.'},
+  escudo:{n:'Escudo',d:'Ignora la primera vez que recibiría daño.'},
+  veneno:{n:'Veneno',d:'Destruye a cualquier criatura a la que inflija daño.'},
+  vital:{n:'Robo vital',d:'El daño que inflige cura a su héroe.'}
+};
+const ICON={
+  guardian:'<svg viewBox="0 0 16 16"><path fill="currentColor" d="M8 1 14 3v5c0 3.5-3 6-6 7-3-1-6-3.5-6-7V3z"/></svg>',
+  furia:'<svg viewBox="0 0 16 16"><path fill="currentColor" d="M9.5 1 3 9h4.5L6 15l7-8.5H8.8z"/></svg>',
+  escudo:'<svg viewBox="0 0 16 16"><circle cx="8" cy="8" r="5.5" fill="none" stroke="currentColor" stroke-width="2.2"/></svg>',
+  veneno:'<svg viewBox="0 0 16 16"><path fill="currentColor" d="M8 1s-5 6-5 9a5 5 0 0 0 10 0c0-3-5-9-5-9z"/></svg>',
+  vital:'<svg viewBox="0 0 16 16"><path fill="currentColor" d="M8 14 2.4 8.4A3.3 3.3 0 0 1 8 4a3.3 3.3 0 0 1 5.6 4.4z"/></svg>'
+};
+// type: c = criatura, h = hechizo
+const CARDS=[
+ // SOL
+ {id:'s1',f:'sol',name:'Chispa Errante',type:'c',cost:1,atk:2,hp:1,kw:['furia'],text:'<b>Furia.</b>',fl:'Nadie sabe de qué hoguera escapó. Ella tampoco.'},
+ {id:'s2',f:'sol',name:'Heraldo del Alba',type:'c',cost:2,atk:2,hp:3,dia:1,text:'<b>Día:</b> +1 ataque.',fl:'Su trompeta despierta al sol, o eso asegura.'},
+ {id:'s3',f:'sol',name:'Lanza Solar',type:'h',cost:2,play:[{do:'damage',amount:3,target:'any'}],text:'Inflige 3 de daño a cualquier objetivo.',fl:'Un rayo de mediodía, afilado a martillo.'},
+ {id:'s4',f:'sol',name:'Forjador de Brasas',type:'c',cost:3,atk:3,hp:2,play:[{do:'damage',amount:1,target:'allEnemies'}],text:'<b>Al entrar:</b> inflige 1 de daño a todos los enemigos.',fl:'Cada golpe de su yunque suelta chispas hacia el otro lado.'},
+ {id:'s5',f:'sol',name:'Fénix de Cobre',type:'c',cost:4,atk:4,hp:2,kw:['furia'],dia:1,text:'<b>Furia.</b> <b>Día:</b> +1 ataque.',fl:'Metal que recuerda haber sido ave.'},
+ {id:'s6',f:'sol',name:'Llamarada',type:'h',cost:4,play:[{do:'damage',amount:2,target:'allEnemyCreatures'}],text:'Inflige 2 de daño a todas las criaturas enemigas.',fl:''},
+ {id:'s7',f:'sol',name:'Centinela Dorado',type:'c',cost:5,atk:4,hp:5,kw:['guardian','escudo'],text:'<b>Guardián.</b> <b>Escudo.</b>',fl:'Lleva siglos guardando una puerta que ya no existe.'},
+ {id:'s8',f:'sol',name:'Corona del Cenit',type:'c',cost:7,atk:6,hp:6,kw:['furia'],play:[{do:'setPhase',value:'dia'},{do:'damage',amount:2,target:'enemyHero'}],text:'<b>Furia.</b> <b>Al entrar:</b> la fase pasa a Día e inflige 2 de daño al héroe rival.',fl:'Cuando despliega las alas, es mediodía.'},
+ // MAREA
+ {id:'m1',f:'marea',name:'Perla Viva',type:'c',cost:1,atk:1,hp:3,kw:['guardian'],text:'<b>Guardián.</b>',fl:'Dura por fuera. Terca por dentro.'},
+ {id:'m2',f:'marea',name:'Oráculo de Espuma',type:'c',cost:2,atk:1,hp:2,play:[{do:'draw',n:1}],text:'<b>Al entrar:</b> roba 1 carta.',fl:'Lee el futuro en las burbujas que revientan.'},
+ {id:'m3',f:'marea',name:'Marea Sanadora',type:'h',cost:2,play:[{do:'heal',amount:4,target:'ownHero'},{do:'draw',n:1}],text:'Restaura 4 de vida a tu héroe. Roba 1 carta.',fl:''},
+ {id:'m4',f:'marea',name:'Anguila Voltaica',type:'c',cost:3,atk:2,hp:2,kw:['veneno'],text:'<b>Veneno.</b>',fl:'Un roce basta.'},
+ {id:'m5',f:'marea',name:'Custodio de Coral',type:'c',cost:4,atk:2,hp:6,kw:['guardian'],noche:2,text:'<b>Guardián.</b> <b>Noche:</b> +2 ataque.',fl:'De día es arrecife. De noche, muralla con dientes.'},
+ {id:'m6',f:'marea',name:'Remolino',type:'h',cost:3,play:[{do:'damage',amount:3,target:'enemyCreature'},{do:'draw',n:1}],text:'Inflige 3 de daño a una criatura enemiga. Roba 1 carta.',fl:''},
+ {id:'m7',f:'marea',name:'Leviatán Dormido',type:'c',cost:6,atk:5,hp:7,kw:['guardian','vital'],text:'<b>Guardián.</b> <b>Robo vital.</b>',fl:'Si despierta del todo, los mapas tendrán que redibujarse.'},
+ {id:'m8',f:'marea',name:'Canto Abisal',type:'h',cost:5,play:[{do:'destroy',target:'enemyCreature'}],text:'Destruye una criatura enemiga.',fl:'Una nota tan grave que solo la oyen los que se hunden.'},
+ // RAIZ
+ {id:'r1',f:'raiz',name:'Brote Tenaz',type:'c',cost:1,atk:1,hp:2,death:[{do:'summon',token:'t1',n:1}],text:'<b>Al morir:</b> invoca una Semilla 1/1.',fl:'Córtalo y crecerá de nuevo.'},
+ {id:'r2',f:'raiz',name:'Lobo de Musgo',type:'c',cost:2,atk:3,hp:2,text:'',fl:'Caza en silencio; huele a lluvia.'},
+ {id:'r3',f:'raiz',name:'Crecer',type:'h',cost:1,play:[{do:'buff',atk:2,hp:2,target:'friendlyCreature'}],text:'Una criatura aliada gana +2/+2.',fl:''},
+ {id:'r4',f:'raiz',name:'Madre Enjambre',type:'c',cost:3,atk:2,hp:2,play:[{do:'summon',token:'t1',n:2}],text:'<b>Al entrar:</b> invoca dos Semillas 1/1.',fl:'Nunca llega sola.'},
+ {id:'r5',f:'raiz',name:'Ciervo Ancestral',type:'c',cost:4,atk:3,hp:4,play:[{do:'buff',atk:1,hp:1,target:'otherFriendly'}],text:'<b>Al entrar:</b> tus otras criaturas ganan +1/+1.',fl:'Donde pisa, el bosque se endereza.'},
+ {id:'r6',f:'raiz',name:'Trenzador de Espinas',type:'c',cost:3,atk:2,hp:4,kw:['guardian'],text:'<b>Guardián.</b>',fl:'Teje zarzas con la paciencia de una abuela.'},
+ {id:'r7',f:'raiz',name:'Coloso de Ceiba',type:'c',cost:6,atk:6,hp:6,kw:['guardian'],play:[{do:'heal',amount:4,target:'ownHero'}],text:'<b>Guardián.</b> <b>Al entrar:</b> restaura 4 de vida a tu héroe.',fl:'El árbol más viejo decidió caminar.'},
+ {id:'r8',f:'raiz',name:'Despertar del Bosque',type:'h',cost:5,play:[{do:'summon',token:'t2',n:3}],text:'Invoca tres Espíritus del Bosque 2/2.',fl:''},
+ // UMBRA
+ {id:'u1',f:'umbra',name:'Polilla Nocturna',type:'c',cost:1,atk:1,hp:2,noche:2,text:'<b>Noche:</b> +2 ataque.',fl:'Busca la luna. Se conforma con tu cuello.'},
+ {id:'u2',f:'umbra',name:'Acólito Velado',type:'c',cost:2,atk:2,hp:3,kw:['vital'],text:'<b>Robo vital.</b>',fl:'Reza en voz baja, y algo le contesta.'},
+ {id:'u3',f:'umbra',name:'Susurro',type:'h',cost:1,play:[{do:'damage',amount:2,target:'enemyCreature'}],text:'Inflige 2 de daño a una criatura enemiga.',fl:''},
+ {id:'u4',f:'umbra',name:'Aracne del Umbral',type:'c',cost:3,atk:1,hp:4,kw:['veneno'],text:'<b>Veneno.</b>',fl:'Teje en el borde entre la sombra y la luz.'},
+ {id:'u5',f:'umbra',name:'Espectro Hambriento',type:'c',cost:4,atk:3,hp:3,kw:['vital'],noche:2,text:'<b>Robo vital.</b> <b>Noche:</b> +2 ataque.',fl:''},
+ {id:'u6',f:'umbra',name:'Pacto de Sangre',type:'h',cost:2,play:[{do:'selfDamage',amount:3},{do:'draw',n:2}],text:'Tu héroe pierde 3 de vida. Roba 2 cartas.',fl:'Firmado con tinta roja, siempre.'},
+ {id:'u7',f:'umbra',name:'Segador Eclipsado',type:'c',cost:5,atk:4,hp:5,play:[{do:'damage',amount:2,target:'otherCreatures'}],text:'<b>Al entrar:</b> inflige 2 de daño a todas las demás criaturas.',fl:'Su guadaña no distingue bandos.'},
+ {id:'u8',f:'umbra',name:'Eclipse Total',type:'h',cost:4,play:[{do:'setPhase',value:'noche'},{do:'buff',atk:1,hp:1,target:'allFriendly'}],text:'La fase pasa a Noche. Tus criaturas ganan +1/+1.',fl:'Por un instante, el sol pierde.'},
+ // NEUTRAL
+ {id:'n1',f:'neutral',name:'Mercader de Caminos',type:'c',cost:2,atk:2,hp:2,play:[{do:'energy',n:1}],text:'<b>Al entrar:</b> ganas 1 brasa este turno.',fl:'Vende fuego en frascos. Algunos son auténticos.'},
+ {id:'n2',f:'neutral',name:'Gólem de Arcilla',type:'c',cost:3,atk:3,hp:4,text:'',fl:''},
+ {id:'n3',f:'neutral',name:'Vigía de Piedra',type:'c',cost:4,atk:2,hp:7,kw:['guardian'],text:'<b>Guardián.</b>',fl:'Lleva tanto tiempo quieto que los pájaros anidan en él.'},
+ {id:'n4',f:'neutral',name:'Titán del Crepúsculo',type:'c',cost:8,atk:7,hp:7,kw:['guardian','vital'],text:'<b>Guardián.</b> <b>Robo vital.</b>',fl:'Nació en el minuto exacto entre el día y la noche.'},
+ // TOKENS
+ {id:'t1',f:'raiz',name:'Semilla',type:'c',cost:1,atk:1,hp:1,token:true,text:'',fl:''},
+ {id:'t2',f:'raiz',name:'Espíritu del Bosque',type:'c',cost:2,atk:2,hp:2,token:true,text:'',fl:''}
+];
+const HEROES={
+  aurelia:{f:'sol',name:'Aurelia',title:'Forjadora del Alba',lore:'Herrera del primer amanecer. Templa espadas en la luz del cenit y no conoce la paciencia.',
+    power:{name:'Chispa',cost:2,text:'Inflige 1 de daño a cualquier objetivo.',eff:[{do:'damage',amount:1,target:'any'}]}},
+  nerea:{f:'marea',name:'Nerea',title:'Voz de la Marea',lore:'Escucha lo que las mareas recuerdan. Gana las guerras largas.',
+    power:{name:'Bruma sanadora',cost:2,text:'Restaura 3 de vida a tu héroe.',eff:[{do:'heal',amount:3,target:'ownHero'}]}},
+  tarn:{f:'raiz',name:'Tarn',title:'Guardián de la Raíz',lore:'Su barba es un bosque y su paciencia, una estación entera.',
+    power:{name:'Germinar',cost:2,text:'Invoca una Semilla 1/1.',eff:[{do:'summon',token:'t1',n:1}]}},
+  vesper:{f:'umbra',name:'Vesper',title:'la Sombra Quieta',lore:'Paga cada secreto con un poco de su propia sangre, y siempre le queda uno más.',
+    power:{name:'Pacto menor',cost:2,text:'Tu héroe pierde 2 de vida. Roba 1 carta.',eff:[{do:'selfDamage',amount:2},{do:'draw',n:1}]}}
+};
+const CARD={};CARDS.forEach(c=>CARD[c.id]=c);
+(()=>{const cnt={};CARDS.forEach(c=>{const k=c.token?'T':FAC[c.f].id;cnt[k]=(cnt[k]||0)+1;c.no=k+'·'+String(cnt[k]).padStart(2,'0')})})();
+const CHOSEN=new Set(['any','enemy','enemyCreature','friendlyCreature','anyCreature']);
+const MAX_BOARD=6,MAX_HAND=9,START_HP=25;
+
+/* ============ ARTE PROCEDURAL ============ */
+function hash(s){let h=2166136261;for(const ch of s){h^=ch.charCodeAt(0);h=Math.imul(h,16777619)}return h>>>0}
+function rng(seed){return()=>{seed|=0;seed=seed+0x6D2B79F5|0;let t=Math.imul(seed^seed>>>15,1|seed);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function hexA(h,a){const n=parseInt(h.slice(1),16);return `rgba(${n>>16&255},${n>>8&255},${n&255},${a})`}
+function paint(id,f,kind){
+  const W=240,H=180,cv=document.createElement('canvas');cv.width=W;cv.height=H;const x=cv.getContext('2d');
+  const R=rng(hash(id)),F=FAC[f];
+  let g=x.createLinearGradient(0,0,0,H);g.addColorStop(0,F.d);g.addColorStop(1,F.k);x.fillStyle=g;x.fillRect(0,0,W,H);
+  x.fillStyle='#fff';for(let i=0;i<70;i++){x.globalAlpha=.08+R()*.5;const s=.4+R()*1.4;x.fillRect(R()*W,R()*H,s,s)}x.globalAlpha=1;
+  const cx=W*(.28+R()*.44),cy=H*(.24+R()*.28);
+  if(f==='sol'){
+    const r=20+R()*20,rg=x.createRadialGradient(cx,cy,1,cx,cy,r*3.2);rg.addColorStop(0,'rgba(255,226,170,1)');rg.addColorStop(.3,hexA(F.c,.6));rg.addColorStop(1,'rgba(0,0,0,0)');
+    x.fillStyle=rg;x.fillRect(0,0,W,H);x.strokeStyle='rgba(255,214,150,.45)';x.lineWidth=1.4;
+    const n=12+(R()*14|0);for(let i=0;i<n;i++){const a=i/n*6.283+R()*.15,l=r*(1.4+R()*1.7);x.beginPath();x.moveTo(cx+Math.cos(a)*r*1.1,cy+Math.sin(a)*r*1.1);x.lineTo(cx+Math.cos(a)*l,cy+Math.sin(a)*l);x.stroke()}
+    x.fillStyle='#fff1d6';x.beginPath();x.arc(cx,cy,r*.62,0,7);x.fill();
+    const p=R()*6;x.fillStyle='rgba(42,16,32,.9)';x.beginPath();x.moveTo(0,H);for(let xx=0;xx<=W;xx+=6)x.lineTo(xx,H*.84+Math.sin(xx/38+p)*7);x.lineTo(W,H);x.fill();
+  }else if(f==='marea'){
+    const mg=x.createRadialGradient(cx,cy*.8,1,cx,cy*.8,70);mg.addColorStop(0,'rgba(220,250,255,.9)');mg.addColorStop(.14,'rgba(160,230,240,.35)');mg.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=mg;x.fillRect(0,0,W,H);
+    for(let k=0;k<7;k++){const y0=H*.46+k*13,p=R()*6,fr=14+k*4+R()*6,am=4+k*1.4;x.beginPath();x.moveTo(0,H);for(let xx=0;xx<=W;xx+=5)x.lineTo(xx,y0+Math.sin(xx/fr+p)*am);x.lineTo(W,H);x.closePath();x.fillStyle=hexA(F.c,.07+k*.05);x.fill();x.strokeStyle='rgba(191,244,247,.16)';x.lineWidth=1;x.stroke()}
+  }else if(f==='raiz'){
+    const gg=x.createRadialGradient(W/2,H,5,W/2,H,H);gg.addColorStop(0,hexA(F.c,.45));gg.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=gg;x.fillRect(0,0,W,H);x.lineCap='round';
+    const br=(x0,y0,a,l,d)=>{if(d<=0)return;const x1=x0+Math.cos(a)*l,y1=y0+Math.sin(a)*l;x.strokeStyle=d>3?'rgba(160,122,79,.95)':hexA(F.c,.8);x.lineWidth=d*1.3;x.beginPath();x.moveTo(x0,y0);x.lineTo(x1,y1);x.stroke();
+      if(d<=2){x.fillStyle='rgba(217,245,168,.7)';x.beginPath();x.arc(x1,y1,1.6+R()*1.8,0,7);x.fill()}
+      br(x1,y1,a-.3-R()*.35,l*(.68+R()*.1),d-1);br(x1,y1,a+.3+R()*.35,l*(.68+R()*.1),d-1)};
+    br(W*(.38+R()*.24),H+4,-1.5708+(R()-.5)*.3,34+R()*10,7);
+  }else if(f==='umbra'){
+    const r=22+R()*16,halo=x.createRadialGradient(cx,cy,r*.8,cx,cy,r*2.8);halo.addColorStop(0,hexA(F.c,.5));halo.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=halo;x.fillRect(0,0,W,H);
+    const mc=document.createElement('canvas');mc.width=W;mc.height=H;const m=mc.getContext('2d');m.fillStyle='#efe4ff';m.beginPath();m.arc(cx,cy,r,0,7);m.fill();
+    m.globalCompositeOperation='destination-out';m.beginPath();m.arc(cx+r*(.45+R()*.3),cy-r*(.1+R()*.2),r*.95,0,7);m.fill();x.drawImage(mc,0,0);
+    for(let k=0;k<3;k++){x.fillStyle=hexA(F.c,.1);x.beginPath();x.ellipse(W*R(),H*(.78+R()*.18),80+R()*60,14+R()*10,0,0,7);x.fill()}
+  }else{
+    x.fillStyle='rgba(233,223,199,.8)';x.beginPath();x.arc(cx,cy,10+R()*8,0,7);x.fill();
+    for(let k=0;k<4;k++){const base=H*(.55+k*.12);x.fillStyle=hexA(k%2?'#8a8070':'#c9bfa8',.12+k*.08);x.beginPath();x.moveTo(0,H);x.lineTo(0,base);let xx=0;while(xx<W){xx+=18+R()*30;x.lineTo(Math.min(xx,W),base-R()*28*(1-k*.2))}x.lineTo(W,H);x.closePath();x.fill()}
+  }
+  if(kind==='h'){
+    x.save();x.translate(W/2,H*.52);x.strokeStyle='rgba(255,255,255,.55)';x.lineWidth=1.2;[30,42].forEach(rr=>{x.beginPath();x.arc(0,0,rr,0,7);x.stroke()});
+    const n=5+(R()*4|0);x.beginPath();for(let i=0;i<=n;i++){const a=(i*2%n)/n*6.283-1.5708;const px=Math.cos(a)*30,py=Math.sin(a)*30;i?x.lineTo(px,py):x.moveTo(px,py)}x.strokeStyle=hexA(F.c,.9);x.lineWidth=1.6;x.stroke();
+    for(let i=0;i<24;i++){const a=i/24*6.283;x.beginPath();x.moveTo(Math.cos(a)*42,Math.sin(a)*42);x.lineTo(Math.cos(a)*(i%3?45:49),Math.sin(a)*(i%3?45:49));x.stroke()}x.restore();
+  }else{
+    const n=kind==='hero'?9:5+(R()*4|0),pts=[];for(let i=0;i<n;i++)pts.push([W*(.16+R()*.68),H*(.16+R()*.6)]);pts.sort((a,b)=>a[0]-b[0]);
+    x.strokeStyle='rgba(255,255,255,.5)';x.lineWidth=kind==='hero'?1.6:1.1;x.beginPath();pts.forEach((p,i)=>i?x.lineTo(p[0],p[1]):x.moveTo(p[0],p[1]));
+    if(kind==='hero'){x.moveTo(pts[1][0],pts[1][1]);x.lineTo(pts[4][0],pts[4][1]);x.lineTo(pts[7][0],pts[7][1])}x.stroke();
+    pts.forEach(p=>{const s=1.6+R()*2.2,gl=x.createRadialGradient(p[0],p[1],0,p[0],p[1],s*5);gl.addColorStop(0,hexA(F.c,.95));gl.addColorStop(1,'rgba(0,0,0,0)');x.fillStyle=gl;x.fillRect(p[0]-s*5,p[1]-s*5,s*10,s*10);x.fillStyle='#fff';x.beginPath();x.arc(p[0],p[1],s*.75,0,7);x.fill()});
+  }
+  const v=x.createRadialGradient(W/2,H/2,H*.35,W/2,H/2,H*.95);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,.55)');x.fillStyle=v;x.fillRect(0,0,W,H);
+  return cv.toDataURL('image/jpeg',.82);
+}
+function buildArt(){
+  const css=[];CARDS.forEach(c=>css.push(`.art-${c.id}{background-image:url(${paint(c.id,c.f,c.type)})}`));
+  Object.entries(HEROES).forEach(([k,h])=>css.push(`.art-h-${k}{background-image:url(${paint('h-'+k,h.f,'hero')})}`));
+  const st=document.createElement('style');st.textContent=css.join('\n');document.head.appendChild(st);
+}
+
+/* ============ MOTOR ============ */
+let G=null,UID=1;
+const UI={sel:null,busy:false,fx:[],atkFx:null,hint:null,lastHero:null};
+const $=s=>document.querySelector(s);
+const FAST=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const sleep=ms=>new Promise(r=>setTimeout(r,FAST?ms*.3:ms));
+const HOVER=matchMedia('(hover: hover)').matches;
+
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
+function makeDeck(f){const ids=CARDS.filter(c=>c.f===f&&!c.token).map(c=>c.id);const n=CARDS.filter(c=>c.f==='neutral').map(c=>c.id);return shuffle([...ids,...ids,...n])}
+function mkPlayer(hero,ai){return{hero,ai,hp:START_HP,maxHp:START_HP,deck:makeDeck(HEROES[hero].f),hand:[],board:[],energy:0,maxEnergy:0,powerUsed:false,fatigue:0}}
+function makeUnit(c,pi){const kw=[...(c.kw||[])];return{uid:UID++,cid:c.id,pi,atk:c.atk,hp:c.hp,max:c.hp,kw,shield:kw.includes('escudo'),sleep:!kw.includes('furia'),attacked:false,dead:false}}
+function findUnit(uid){for(const P of G.players)for(const u of P.board)if(u.uid===uid)return u;return null}
+function alive(P){return P.board.filter(u=>!u.dead).length}
+const uref=u=>({k:'u',uid:u.uid});
+const same=(a,b)=>a&&b&&a.k===b.k&&(a.k==='h'?a.pi===b.pi:a.uid===b.uid);
+function hname(pi){return HEROES[G.players[pi].hero].name}
+function tName(r){if(!r)return'';if(r.k==='h')return r.pi===0?'tu héroe':hname(r.pi);const u=findUnit(r.uid);return u?CARD[u.cid].name:'?'}
+function log(t,c){G.log.push({t,c});if(G.log.length>200)G.log.shift()}
+function phaseBoost(u){const c=CARD[u.cid];return G.phase==='dia'?(c.dia||0):(c.noche||0)}
+function effAtk(u){return Math.max(0,u.atk+phaseBoost(u))}
+function canAttack(u){return !u.dead&&!u.attacked&&!u.sleep&&effAtk(u)>0}
+function needsTarget(effs){const e=(effs||[]).find(e=>CHOSEN.has(e.target));return e?e.target:null}
+function fx(r,t,cls){UI.fx.push({r,t,cls})}
+
+function validTargets(kind,pi){
+  const me=G.players[pi],op=G.players[1-pi];
+  const eu=op.board.filter(u=>!u.dead).map(uref),fu=me.board.filter(u=>!u.dead).map(uref);
+  switch(kind){
+    case'any':return[{k:'h',pi:1-pi},...eu,{k:'h',pi},...fu];
+    case'enemy':return[{k:'h',pi:1-pi},...eu];
+    case'enemyCreature':return eu;
+    case'friendlyCreature':return fu;
+    case'anyCreature':return[...eu,...fu];
+  }return[];
+}
+function autoTargets(kind,ctx){
+  const pi=ctx.pi,me=G.players[pi],op=G.players[1-pi],sid=ctx.self?ctx.self.uid:-1;
+  const live=b=>b.filter(u=>!u.dead);
+  switch(kind){
+    case'enemyHero':return[{k:'h',pi:1-pi}];
+    case'ownHero':return[{k:'h',pi}];
+    case'allEnemyCreatures':return live(op.board).map(uref);
+    case'allEnemies':return[...live(op.board).map(uref),{k:'h',pi:1-pi}];
+    case'otherCreatures':return[...live(me.board),...live(op.board)].filter(u=>u.uid!==sid).map(uref);
+    case'otherFriendly':return live(me.board).filter(u=>u.uid!==sid).map(uref);
+    case'allFriendly':return live(me.board).map(uref);
+  }return[];
+}
+function resolveT(kind,ctx){if(!kind)return[];if(CHOSEN.has(kind))return ctx.target?[ctx.target]:[];return autoTargets(kind,ctx)}
+
+function damage(r,amt,src){
+  if(amt<=0)return 0;
+  if(r.k==='u'){
+    const u=findUnit(r.uid);if(!u||u.dead)return 0;
+    if(u.shield){u.shield=false;fx(r,'Escudo','shield');return 0}
+    u.hp-=amt;if(src&&src.kw.includes('veneno'))u.hp=Math.min(u.hp,0);
+    fx(r,'−'+amt,'dmg');if(u.hp<=0)u.dead=true;
+  }else{G.players[r.pi].hp-=amt;fx(r,'−'+amt,'dmg')}
+  if(src&&src.kw.includes('vital'))heal({k:'h',pi:src.pi},amt);
+  return amt;
+}
+function heal(r,amt){
+  if(r.k==='u'){const u=findUnit(r.uid);if(!u||u.dead)return;const h=Math.min(amt,u.max-u.hp);if(h>0){u.hp+=h;fx(r,'+'+h,'heal')}}
+  else{const P=G.players[r.pi];const h=Math.min(amt,P.maxHp-P.hp);if(h>0){P.hp+=h;fx(r,'+'+h,'heal')}}
+}
+function draw(pi,n){
+  const P=G.players[pi];
+  for(let i=0;i<n;i++){
+    if(!P.deck.length){P.fatigue++;log(`${pi?hname(pi)+' sufre':'Sufres'} fatiga: <b>${P.fatigue}</b> de daño.`,'dim');damage({k:'h',pi},P.fatigue,null);continue}
+    const id=P.deck.pop();
+    if(P.hand.length>=MAX_HAND){log(`Mano llena: se quema <b>${CARD[id].name}</b>.`,'dim');continue}
+    P.hand.push(id);
+  }
+}
+function setPhase(v){if(G.phase===v)return;G.phase=v;log(v==='dia'?'La fase cambia a <b>Día</b>.':'La fase cambia a <b>Noche</b>.','phase')}
+function runEffects(list,ctx){
+  for(const e of list||[]){
+    const P=G.players[ctx.pi];
+    switch(e.do){
+      case'damage':resolveT(e.target,ctx).forEach(r=>damage(r,e.amount,null));break;
+      case'heal':resolveT(e.target,ctx).forEach(r=>heal(r,e.amount));break;
+      case'draw':draw(ctx.pi,e.n);break;
+      case'buff':resolveT(e.target,ctx).forEach(r=>{if(r.k!=='u')return;const u=findUnit(r.uid);if(!u||u.dead)return;u.atk+=e.atk;u.hp+=e.hp;u.max+=e.hp;fx(r,`+${e.atk}/+${e.hp}`,'buff')});break;
+      case'summon':for(let i=0;i<e.n;i++){if(alive(P)>=MAX_BOARD)break;P.board.push(makeUnit(CARD[e.token],ctx.pi))}break;
+      case'destroy':resolveT(e.target,ctx).forEach(r=>{const u=r.k==='u'&&findUnit(r.uid);if(u&&!u.dead){u.hp=0;u.dead=true;fx(r,'Destruida','dmg')}});break;
+      case'energy':P.energy+=e.n;fx({k:'h',pi:ctx.pi},`+${e.n} brasa`,'info');break;
+      case'setPhase':setPhase(e.value);break;
+      case'selfDamage':damage({k:'h',pi:ctx.pi},e.amount,null);break;
+    }
+  }
+}
+function canPlayCard(pi,c){const P=G.players[pi];if(c.cost>P.energy)return false;if(c.type==='c'&&alive(P)>=MAX_BOARD)return false;
+  const tk=needsTarget(c.play);if(tk&&c.type==='h'&&!validTargets(tk,pi).length)return false;return true}
+function playCard(pi,i,target){
+  const P=G.players[pi],id=P.hand[i],c=CARD[id];if(!c||!canPlayCard(pi,c))return false;
+  const tk=needsTarget(c.play);
+  if(tk){const vt=validTargets(tk,pi);if(target&&!vt.some(t=>same(t,target)))return false;if(!target&&c.type==='h')return false}
+  P.energy-=c.cost;P.hand.splice(i,1);
+  let self=null;if(c.type==='c'){self=makeUnit(c,pi);P.board.push(self)}
+  log(`${pi?`<b>${hname(pi)}</b> juega`:'Juegas'} <b>${c.name}</b>${target?` sobre ${tName(target)}`:''}.`);
+  runEffects(c.play,{pi,self,target});
+  return true;
+}
+function powerUsable(pi){const P=G.players[pi],H=HEROES[P.hero],pw=H.power;if(P.powerUsed||P.energy<pw.cost)return false;
+  if(pw.eff.some(e=>e.do==='summon')&&alive(P)>=MAX_BOARD)return false;const tk=needsTarget(pw.eff);if(tk&&!validTargets(tk,pi).length)return false;return true}
+function usePower(pi,target){
+  if(!powerUsable(pi))return false;const P=G.players[pi],pw=HEROES[P.hero].power;const tk=needsTarget(pw.eff);
+  if(tk&&(!target||!validTargets(tk,pi).some(t=>same(t,target))))return false;
+  P.energy-=pw.cost;P.powerUsed=true;log(`${pi?`<b>${hname(pi)}</b> usa`:'Usas'} <b>${pw.name}</b>${target?` sobre ${tName(target)}`:''}.`);
+  runEffects(pw.eff,{pi,self:null,target});return true;
+}
+function attackTargets(pi){
+  const op=G.players[1-pi],units=op.board.filter(u=>!u.dead);const gs=units.filter(u=>u.kw.includes('guardian'));
+  if(gs.length)return gs.map(uref);return[{k:'h',pi:1-pi},...units.map(uref)];
+}
+function attack(pi,uid,r){
+  const u=findUnit(uid);if(!u||u.pi!==pi||!canAttack(u))return false;if(!attackTargets(pi).some(t=>same(t,r)))return false;
+  u.attacked=true;const a=effAtk(u);
+  log(`${CARD[u.cid].name} ataca a ${tName(r)}.`);
+  if(r.k==='u'){const t=findUnit(r.uid);const ta=effAtk(t);damage(r,a,u);damage(uref(u),ta,t)}
+  else damage(r,a,u);
+  return true;
+}
+function reap(){
+  for(const P of G.players){const dead=P.board.filter(u=>u.dead);if(!dead.length)continue;P.board=P.board.filter(u=>!u.dead);
+    dead.forEach(u=>{const c=CARD[u.cid];log(`${c.name} cae.`,'dim');if(c.death)runEffects(c.death,{pi:u.pi,self:null,target:null})})}
+}
+async function settle(){
+  render();let g=0;
+  while(G.players.some(P=>P.board.some(u=>u.dead))&&g++<10){await sleep(460);reap();render()}
+  checkOver();
+}
+function checkOver(){
+  if(G.over)return;const a=G.players[0].hp<=0,b=G.players[1].hp<=0;
+  if(a||b){G.over=true;G.winner=a&&b?-1:(a?1:0);UI.sel=null;render();setTimeout(showEnd,700)}
+}
+function startTurn(pi){
+  if(G.over)return;G.cur=pi;const P=G.players[pi];
+  if(pi===0){G.round++;if(G.round>1){G.phase=G.phase==='dia'?'noche':'dia';log(G.phase==='dia'?'Amanece: fase de <b>Día</b>.':'Cae la noche: fase de <b>Noche</b>.','phase')}}
+  P.maxEnergy=Math.min(10,P.maxEnergy+1);P.energy=P.maxEnergy;P.powerUsed=false;
+  P.board.forEach(u=>{u.sleep=false;u.attacked=false});
+  log(pi===0?`Ronda ${G.round} · tu turno`:`Turno de ${hname(pi)}`,'turn');
+  draw(pi,1);UI.hint=null;
+  banner(pi===0?'Tu turno':`Turno de ${hname(1)}`);
+  render();checkOver();
+  if(P.ai&&!G.over)runAI();
+}
+function newGame(hero){
+  const others=Object.keys(HEROES).filter(h=>h!==hero);const foe=others[Math.random()*others.length|0];
+  UID=1;UI.sel=null;UI.busy=false;UI.fx=[];UI.lastHero=hero;
+  G={players:[mkPlayer(hero,false),mkPlayer(foe,true)],cur:0,round:0,phase:'dia',over:false,winner:null,log:[]};
+  draw(0,3);draw(1,4);
+  log(`${HEROES[hero].name} contra ${HEROES[foe].name}. Que empiece el ciclo.`,'phase');
+  $('#overlay').hidden=true;startTurn(0);
+}
+
+/* ============ IA ============ */
+function value(u){return effAtk(u)*1.5+u.hp+(u.kw.includes('guardian')?1:0)+(u.kw.includes('veneno')?2:0)}
+function aiTarget(e,kind,pi){
+  const ts=validTargets(kind,pi),op=1-pi;
+  const eu=ts.filter(r=>r.k==='u'&&findUnit(r.uid).pi===op).map(r=>findUnit(r.uid));
+  const fu=ts.filter(r=>r.k==='u'&&findUnit(r.uid).pi===pi).map(r=>findUnit(r.uid));
+  const eh=ts.find(r=>r.k==='h'&&r.pi===op);
+  if(e.do==='damage'){
+    if(eh&&G.players[op].hp<=e.amount)return eh;
+    const kill=eu.filter(u=>!u.shield&&u.hp<=e.amount).sort((a,b)=>value(b)-value(a));if(kill.length)return uref(kill[0]);
+    if(eh)return eh;if(eu.length)return uref(eu.sort((a,b)=>value(b)-value(a))[0]);return null;
+  }
+  if(e.do==='destroy'){if(!eu.length)return null;return uref(eu.sort((a,b)=>value(b)-value(a))[0])}
+  if(e.do==='buff'||e.do==='heal'){if(!fu.length)return null;return uref(fu.sort((a,b)=>value(b)-value(a))[0])}
+  return ts[0]||null;
+}
+function aiWants(c){
+  const P=G.players[1],O=G.players[0],eu=alive(O),fu=alive(P);
+  switch(c.id){
+    case'u6':return P.hp>10&&P.hand.length<7;
+    case'u8':return fu>=2||G.phase==='dia'&&P.board.some(u=>CARD[u.cid].noche);
+    case'm3':return P.hp<=P.maxHp-4||P.hand.length<=2;
+    case's6':return eu>=2;
+    case'u7':{const mine=P.board.filter(u=>!u.dead&&u.hp<=2).length,theirs=O.board.filter(u=>!u.dead&&u.hp<=2).length;return theirs>=mine}
+    case'r3':return fu>0;
+  }return true;
+}
+function aiAttackTarget(u){
+  const ts=attackTargets(1),O=G.players[0],a=effAtk(u),ven=u.kw.includes('veneno');
+  const units=ts.filter(r=>r.k==='u').map(r=>findUnit(r.uid)),hero=ts.find(r=>r.k==='h');
+  if(!hero){const kill=units.filter(t=>!t.shield&&(t.hp<=a||ven));return uref((kill.length?kill:units).sort((x,y)=>x.hp-y.hp)[0])}
+  const total=G.players[1].board.filter(canAttack).reduce((s,x)=>s+effAtk(x),0);if(total>=O.hp)return hero;
+  let best=null,bs=0;
+  for(const t of units){
+    const ta=effAtk(t),kills=!t.shield&&(t.hp<=a||ven);
+    const survives=u.shield||(ta<u.hp&&!(t.kw.includes('veneno')&&ta>0));
+    let s=0;if(kills&&survives)s=value(t)+3;else if(kills&&value(t)>=value(u))s=value(t)-value(u)+1;
+    if(s>bs){bs=s;best=t}
+  }
+  return best?uref(best):hero;
+}
+function aiPowerTarget(){
+  const P=G.players[1],pw=HEROES[P.hero].power;const tk=needsTarget(pw.eff);
+  switch(P.hero){
+    case'nerea':return P.hp<=P.maxHp-3?{ok:true}:{ok:false};
+    case'vesper':return P.hp>9&&P.hand.length<8?{ok:true}:{ok:false};
+    case'tarn':return{ok:true};
+    case'aurelia':{const t=aiTarget(pw.eff[0],tk,1);return t?{ok:true,t}:{ok:false}}
+  }return{ok:false};
+}
+async function runAI(){
+  if(G.over)return;UI.busy=true;render();await sleep(1000);
+  const pi=1,P=G.players[1];
+  for(let g=0;g<14&&!G.over;g++){
+    const opts=P.hand.map((id,i)=>({i,c:CARD[id]})).filter(o=>canPlayCard(pi,o.c)&&aiWants(o.c));
+    if(!opts.length)break;
+    opts.sort((a,b)=>b.c.cost-a.c.cost);
+    let done=false;
+    for(const o of opts){
+      const tk=needsTarget(o.c.play);let t=null;
+      if(tk){t=aiTarget(o.c.play.find(e=>e.target===tk),tk,pi);if(!t&&o.c.type==='h')continue}
+      showPreview(o.c.id,null,true);
+      if(playCard(pi,o.i,t)){done=true;break}
+    }
+    if(!done)break;
+    await settle();await sleep(700);
+  }
+  if(!G.over&&powerUsable(1)){const d=aiPowerTarget();if(d.ok&&usePower(1,d.t||null)){await settle();await sleep(600)}}
+  const skip=new Set();
+  for(let g=0;g<10&&!G.over;g++){
+    const u=P.board.find(x=>canAttack(x)&&!skip.has(x.uid));if(!u)break;
+    const t=aiAttackTarget(u);if(!t){skip.add(u.uid);continue}
+    UI.atkFx={from:u.uid,to:t};render();await sleep(420);UI.atkFx=null;
+    attack(pi,u.uid,t);await settle();await sleep(420);
+  }
+  UI.busy=false;
+  if(!G.over){await sleep(300);startTurn(0)}
+}
+
+/* ============ RENDER ============ */
+function myTurn(){return G&&!G.over&&G.cur===0&&!UI.busy}
+function isTarget(r){return !!(UI.sel&&UI.sel.targets&&UI.sel.targets.some(t=>same(t,r)))}
+function faceHTML(c){
+  const F=FAC[c.f];
+  return `<div class="face f-${c.f}${c.type==='h'?' spell':''}"><div class="cost">${c.cost}</div><div class="art art-${c.id}"></div>
+  <div class="nm">${c.name}</div><div class="tl">${c.type==='h'?'Hechizo':(c.token?'Ficha':'Criatura')} · ${F.n}</div>
+  <div class="tx">${c.text||'<i>Sin habilidad.</i>'}</div>
+  ${c.type==='c'?`<span class="s atk">${c.atk}</span><span class="s hp">${c.hp}</span>`:''}<span class="no">${c.no}</span></div>`;
+}
+function unitHTML(u){
+  const c=CARD[u.cid],r=uref(u),cls=['unit','f-'+c.f];
+  if(u.kw.includes('guardian'))cls.push('guardian');if(u.shield)cls.push('shielded');if(u.dead)cls.push('dying');
+  if(u.pi===0&&myTurn()&&canAttack(u))cls.push('can');if(u.sleep&&!u.dead)cls.push('asleep');
+  if(UI.sel&&UI.sel.uid===u.uid)cls.push('sel');if(isTarget(r))cls.push('tgt');
+  if(UI.atkFx&&UI.atkFx.from===u.uid)cls.push(u.pi===0?'lunge-up':'lunge-down');
+  if(UI.atkFx&&same(UI.atkFx.to,r))cls.push('struck');
+  const b=phaseBoost(u);
+  const kws=u.kw.filter(k=>k!=='escudo'||u.shield).map(k=>`<i class="kw kw-${k}" title="${KW[k].n}">${ICON[k]}</i>`).join('');
+  return `<div class="${cls.join(' ')}" data-act="unit" data-uid="${u.uid}" data-card="${c.id}" title="${c.name}">
+   <div class="uf art-${c.id}"></div><div class="ukw">${kws}</div><div class="uname">${c.name}</div>
+   <span class="s atk${b?' boost':''}">${effAtk(u)}</span><span class="s hp${u.hp<u.max?' hurt':''}">${Math.max(0,u.hp)}</span>
+   ${u.sleep&&!u.dead&&u.pi===0?'<span class="zz">z</span>':''}</div>`;
+}
+function heroHTML(pi){
+  const P=G.players[pi],H=HEROES[P.hero],pw=H.power,r={k:'h',pi};
+  const cls=['hero','f-'+H.f];if(isTarget(r))cls.push('tgt');if(UI.atkFx&&same(UI.atkFx.to,r))cls.push('struck');
+  let pips='';const n=Math.max(P.maxEnergy,P.energy);for(let i=0;i<n;i++)pips+=`<i class="${i<P.energy?'on':''}"></i>`;
+  const usable=pi===0&&myTurn()&&powerUsable(0);
+  const pbtn=pi===0
+    ?`<button type="button" class="power${usable?' ready':''}${UI.sel&&UI.sel.kind==='power'?' sel':''}" data-act="power" ${usable?'':'disabled'}><span class="pc">${pw.cost}</span><span class="pn">${pw.name}</span><span class="pt">${pw.text}</span></button>`
+    :`<div class="power foe${P.powerUsed?' used':''}"><span class="pc">${pw.cost}</span><span class="pn">${pw.name}</span><span class="pt">${pw.text}</span></div>`;
+  return `<div class="hrow" style="gap:12px"><div class="${cls.join(' ')}" data-act="hero" data-pi="${pi}" data-hero="${pi}">
+    <div class="portrait art-h-${P.hero}"><span class="hp">${Math.max(0,P.hp)}</span></div>
+    <div class="hinfo"><div class="hname">${H.name}</div><div class="htitle">${H.title}</div>
+    <div class="embers">${pips}<b>${P.energy}/${P.maxEnergy}</b></div><div class="meta">Mazo ${P.deck.length} · Mano ${P.hand.length}</div></div></div>${pbtn}</div>`;
+}
+function hintText(){
+  if(!G)return'Elige un héroe para empezar.';
+  if(G.over)return G.winner===0?'Victoria.':G.winner===1?'Derrota.':'Empate.';
+  if(G.cur!==0)return`${hname(1)} está pensando…`;
+  if(UI.hint)return UI.hint;
+  if(UI.sel&&UI.sel.kind==='atk')return'Elige a quién atacar. Toca fuera para cancelar.';
+  if(UI.sel&&UI.sel.targets)return'Elige un objetivo. Toca fuera para cancelar.';
+  if(noMoves())return'No te quedan jugadas. Termina el turno.';
+  return HOVER?'Haz clic en una carta para jugarla o en una criatura con brillo verde para atacar.':'Toca una carta para verla y tócala de nuevo para jugarla.';
+}
+function noMoves(){const P=G.players[0];if(P.hand.some(id=>canPlayCard(0,CARD[id])))return false;if(P.board.some(canAttack))return false;return !powerUsable(0)}
+function render(){
+  if(!G)return;const P=G.players[0],E=G.players[1];
+  $('#eBoard').style.setProperty('--n',Math.max(4,E.board.length));$('#pBoard').style.setProperty('--n',Math.max(4,P.board.length));
+  $('#eHero').innerHTML=heroHTML(1);
+  $('#eHand').innerHTML=E.hand.map(()=>'<div class="back"></div>').join('');
+  $('#eBoard').innerHTML=E.board.map(unitHTML).join('')||'<p class="empty">Lado del rival</p>';
+  $('#pBoard').innerHTML=P.board.map(unitHTML).join('')||'<p class="empty">Tu lado de la mesa</p>';
+  $('#pHero').innerHTML=heroHTML(0);
+  $('#pHand').innerHTML=P.hand.map((id,i)=>{const c=CARD[id],can=myTurn()&&canPlayCard(0,c);
+    const sel=UI.sel&&(UI.sel.kind==='hand'||UI.sel.kind==='pick')&&UI.sel.i===i;
+    return `<div class="card hand${can?' playable':''}${sel?' sel':''}" data-act="hand" data-i="${i}" data-card="${id}">${faceHTML(c)}</div>`}).join('')||'<p class="empty">Sin cartas en la mano</p>';
+  $('#disc').classList.toggle('night',G.phase==='noche');$('#table').classList.toggle('night',G.phase==='noche');
+  $('#roundTxt').innerHTML=`Ronda ${G.round}<b>${G.phase==='dia'?'Día':'Noche'}</b>`;
+  $('#hint').textContent=hintText();
+  const eb=$('#endBtn');eb.disabled=!myTurn();eb.textContent=G.over?'Partida terminada':(G.cur===0?'Terminar turno':'Turno rival…');
+  eb.classList.toggle('urge',myTurn()&&noMoves());
+  $('#log').innerHTML=G.log.slice(-80).reverse().map(l=>`<li class="${l.c||''}">${l.t}</li>`).join('');
+  flushFx();
+}
+function flushFx(){
+  const list=UI.fx;UI.fx=[];
+  list.forEach(f=>{const el=f.r.k==='u'?document.querySelector(`[data-uid="${f.r.uid}"]`):document.querySelector(`[data-hero="${f.r.pi}"] .portrait`);
+    if(!el)return;const s=document.createElement('span');s.className='float '+f.cls;s.textContent=f.t;el.appendChild(s);setTimeout(()=>s.remove(),1150)});
+}
+function banner(t){const b=$('#banner');b.textContent=t;b.classList.remove('show');void b.offsetWidth;b.classList.add('show')}
+function previewHTML(cid,u,w){
+  const c=CARD[cid];let h=`<div class="card" style="--cw:${w}px">${faceHTML(c)}</div>`;
+  if(w<180)return h;
+  h+='<div class="pinfo">';
+  if(u)h+=`<p class="live">En mesa: <b>${effAtk(u)}</b> de ataque · <b>${Math.max(0,u.hp)}</b>/${u.max} de vida${u.shield?' · Escudo activo':''}${u.sleep?' · Dormida':''}${u.attacked?' · Ya atacó':''}</p>`;
+  (c.kw||[]).forEach(k=>h+=`<p><b>${KW[k].n}:</b> ${KW[k].d}</p>`);
+  if(c.dia)h+=`<p><b>Día:</b> gana +${c.dia} de ataque mientras sea de día.</p>`;
+  if(c.noche)h+=`<p><b>Noche:</b> gana +${c.noche} de ataque mientras sea de noche.</p>`;
+  if(c.fl)h+=`<p class="fl">${c.fl}</p>`;
+  return h+'</div>';
+}
+let lastPrev=null,peekT=null;
+function showPreview(cid,u,force){
+  const key=cid+':'+(u?u.uid:'');if(key===lastPrev&&!force)return;lastPrev=key;
+  $('#preview').innerHTML=previewHTML(cid,u,200);
+}
+function peek(cid,u){
+  if(HOVER)return;const p=$('#peek');p.innerHTML=previewHTML(cid,u,150);p.classList.add('on');clearTimeout(peekT);peekT=setTimeout(()=>p.classList.remove('on'),2600);
+}
+function setHint(t){UI.hint=t;$('#hint').textContent=hintText()}
+
+/* ============ INPUT ============ */
+async function humanAct(fn){
+  if(UI.busy)return;UI.busy=true;UI.sel=null;UI.hint=null;fn();await settle();UI.busy=false;render();
+}
+async function doAttack(uid,r){
+  if(UI.busy)return;UI.busy=true;UI.sel=null;UI.atkFx={from:uid,to:r};render();await sleep(260);UI.atkFx=null;
+  attack(0,uid,r);await settle();UI.busy=false;render();
+}
+function refFromEl(el){const a=el.dataset.act;if(a==='unit')return{k:'u',uid:+el.dataset.uid};if(a==='hero')return{k:'h',pi:+el.dataset.pi};return null}
+function commit(r){
+  const s=UI.sel;UI.sel=null;
+  if(s.kind==='hand')humanAct(()=>playCard(0,s.i,r));
+  else if(s.kind==='atk')doAttack(s.uid,r);
+  else if(s.kind==='power')humanAct(()=>usePower(0,r));
+}
+function tryHand(i,el){
+  const P=G.players[0],c=CARD[P.hand[i]];
+  if(!HOVER&&!(UI.sel&&UI.sel.kind==='pick'&&UI.sel.i===i)&&!(UI.sel&&UI.sel.kind==='hand'&&UI.sel.i===i)){UI.sel={kind:'pick',i};UI.hint=null;render();setHint(canPlayCard(0,c)?`Toca de nuevo ${c.name} para jugarla.`:hintFor(c));return}
+  if(UI.sel&&UI.sel.kind==='hand'&&UI.sel.i===i){UI.sel=null;render();return}
+  if(!canPlayCard(0,c)){if(el){el.classList.remove('shake');void el.offsetWidth;el.classList.add('shake')}setHint(hintFor(c));return}
+  const tk=needsTarget(c.play);
+  if(tk){const ts=validTargets(tk,0);if(ts.length){UI.sel={kind:'hand',i,targets:ts};UI.hint=null;render();setHint(`Elige un objetivo para ${c.name}.`);return}}
+  humanAct(()=>playCard(0,i,null));
+}
+function hintFor(c){const P=G.players[0];if(c.cost>P.energy)return`Te faltan brasas: ${c.name} cuesta ${c.cost}.`;if(c.type==='c')return'Tu mesa está llena (6 criaturas).';return'No hay objetivos válidos.'}
+function tryPower(){
+  if(UI.sel&&UI.sel.kind==='power'){UI.sel=null;render();return}
+  const pw=HEROES[G.players[0].hero].power,tk=needsTarget(pw.eff);
+  if(tk){UI.sel={kind:'power',targets:validTargets(tk,0)};UI.hint=null;render();setHint(`Elige un objetivo para ${pw.name}.`);return}
+  humanAct(()=>usePower(0,null));
+}
+function onAct(act,el){
+  if(act==='end'){if(myTurn()){UI.sel=null;startTurn(1)}return}
+  if(!G||G.over)return;
+  if(UI.sel&&UI.sel.targets){const r=refFromEl(el);if(r&&UI.sel.targets.some(t=>same(t,r))){commit(r);return}}
+  if(act==='hand'){const i=+el.dataset.i;showPreview(el.dataset.card,null);peek(el.dataset.card,null);if(!myTurn())return;tryHand(i,el);return}
+  if(act==='unit'){const u=findUnit(+el.dataset.uid);if(!u)return;showPreview(u.cid,u);
+    if(myTurn()&&u.pi===0&&canAttack(u)){if(UI.sel&&UI.sel.uid===u.uid){UI.sel=null;render();return}UI.sel={kind:'atk',uid:u.uid,targets:attackTargets(0)};UI.hint=null;render();return}
+    peek(u.cid,u);if(UI.sel){UI.sel=null;render()}return}
+  if(act==='power'){if(myTurn())tryPower();return}
+  if(act==='hero'){if(UI.sel){UI.sel=null;render()}}
+}
+document.addEventListener('click',e=>{
+  if(e.target.closest('#overlay,.tabs,#newBtn'))return;
+  if(!e.target.closest('#view-mesa'))return;
+  const el=e.target.closest('[data-act]');
+  if(!el){if(G&&UI.sel){UI.sel=null;UI.hint=null;render()}return}
+  onAct(el.dataset.act,el);
+});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&G&&UI.sel){UI.sel=null;UI.hint=null;render()}});
+if(HOVER)document.addEventListener('mouseover',e=>{const el=e.target.closest('#view-mesa [data-card]');if(!el||!G)return;const u=el.dataset.uid?findUnit(+el.dataset.uid):null;showPreview(el.dataset.card,u)});
+
+/* ============ OVERLAYS / VISTAS ============ */
+function showPicker(){
+  const o=$('#overlay');
+  o.innerHTML=`<div class="modal"><h2>Elige tu héroe</h2><p class="lead">Cada héroe juega con un mazo de 20 cartas de su facción y un poder propio. El rival será otro héroe al azar, controlado por la máquina.</p>
+  <div class="heroes">${Object.entries(HEROES).map(([k,h])=>`<button type="button" class="htile f-${h.f}" data-pick="${k}">
+    <div class="hart art-h-${k}"></div><div class="hb"><div class="ht">${FAC[h.f].n}</div><div class="hn">${h.name}</div><div class="hl">${h.lore}</div>
+    <div class="hp2"><b>${h.power.name}</b> · 2 brasas<br>${h.power.text}</div></div></button>`).join('')}</div></div>`;
+  o.hidden=false;
+}
+function showEnd(){
+  const o=$('#overlay'),w=G.winner,foe=hname(1);
+  const t=w===0?'Victoria':w===1?'Derrota':'Empate';
+  const l=w===0?`${foe} se retira del campo tras ${G.round} rondas.`:w===1?`${foe} apagó tu luz en la ronda ${G.round}.`:'Ambos héroes cayeron a la vez.';
+  o.innerHTML=`<div class="modal endbox"><h2>${t}</h2><p class="lead" style="margin:0 auto">${l}</p><div class="row">
+    <button class="btn primary" type="button" data-again="1">Revancha con ${HEROES[UI.lastHero].name}</button><button class="btn" type="button" data-again="0">Elegir otro héroe</button></div></div>`;
+  o.hidden=false;
+}
+$('#overlay').addEventListener('click',e=>{
+  const p=e.target.closest('[data-pick]');if(p){newGame(p.dataset.pick);return}
+  const a=e.target.closest('[data-again]');if(a){a.dataset.again==='1'?newGame(UI.lastHero):showPicker()}
+});
+$('#newBtn').addEventListener('click',()=>{if(UI.busy&&G&&G.cur===1&&!G.over){G.over=true}selectTab('mesa');showPicker()});
+function selectTab(t){
+  document.querySelectorAll('.tabs button').forEach(b=>b.setAttribute('aria-selected',String(b.dataset.tab===t)));
+  ['mesa','reglas','cartas'].forEach(v=>$('#view-'+v).hidden=v!==t);
+}
+document.querySelector('.tabs').addEventListener('click',e=>{const b=e.target.closest('[data-tab]');if(b)selectTab(b.dataset.tab)});
+function renderGallery(){
+  let h='';
+  ['sol','marea','raiz','umbra','neutral'].forEach(f=>{
+    const F=FAC[f],hero=Object.entries(HEROES).find(([,x])=>x.f===f);
+    h+=`<section class="gal-sec f-${f}"><div class="gal-head"><h3>${F.n}</h3><p>${F.desc}</p></div>`;
+    if(hero){const [k,x]=hero;h+=`<div class="gal-hero f-${f}"><div class="portrait art-h-${k}"></div><div><div class="hname">${x.name}, ${x.title}</div><p><b>${x.power.name}</b> (2 brasas): ${x.power.text}</p><p><i>${x.lore}</i></p></div></div>`}
+    h+=`<div class="gal-grid">${CARDS.filter(c=>c.f===f&&!c.token).map(c=>`<div class="gal-item"><div class="card">${faceHTML(c)}</div>${c.fl?`<p class="fl">${c.fl}</p>`:''}</div>`).join('')}</div></section>`;
+  });
+  h+=`<section class="gal-sec f-raiz"><div class="gal-head"><h3>Fichas</h3><p>Criaturas que solo aparecen invocadas por otras cartas.</p></div><div class="gal-grid">${CARDS.filter(c=>c.token).map(c=>`<div class="gal-item"><div class="card">${faceHTML(c)}</div></div>`).join('')}</div></section>`;
+  $('#gallery').innerHTML=h;
+  $('#kwList').innerHTML=Object.values(KW).map(k=>`<dt>${k.n}</dt><dd>${k.d}</dd>`).join('');
+}
+
+/* ============ ARRANQUE ============ */
+function boot(data){
+  buildArt();renderGallery();
+  if(data&&data.G){G=data.G;UID=data.UID||UID;UI.lastHero=data.lastHero||G.players[0].hero;render();
+    if(G.over)showEnd();else if(G.cur===1)runAI();}
+  else showPicker();
+}
+try{window.claude?.hot?.snapshot?.(()=>({G,UID,lastHero:UI.lastHero}))}catch(e){}
+window.claude?.hot?.ready?window.claude.hot.ready(boot):boot(window.claude?.hot?.data??{});
+</script>
+
+</body>
+</html>
