@@ -1,0 +1,812 @@
+{
+  "version": "0.1",
+  "cartas": [
+    {
+      "id": "s1",
+      "f": "sol",
+      "name": "Chispa Errante",
+      "type": "c",
+      "cost": 1,
+      "atk": 2,
+      "hp": 1,
+      "kw": [
+        "furia"
+      ],
+      "text": "<b>Furia.</b>",
+      "fl": "Nadie sabe de qué hoguera escapó. Ella tampoco.",
+      "no": "S·01",
+      "texto_plano": "Furia."
+    },
+    {
+      "id": "s2",
+      "f": "sol",
+      "name": "Heraldo del Alba",
+      "type": "c",
+      "cost": 2,
+      "atk": 2,
+      "hp": 3,
+      "dia": 1,
+      "text": "<b>Día:</b> +1 ataque.",
+      "fl": "Su trompeta despierta al sol, o eso asegura.",
+      "no": "S·02",
+      "texto_plano": "Día: +1 ataque."
+    },
+    {
+      "id": "s3",
+      "f": "sol",
+      "name": "Lanza Solar",
+      "type": "h",
+      "cost": 2,
+      "play": [
+        {
+          "do": "damage",
+          "amount": 3,
+          "target": "any"
+        }
+      ],
+      "text": "Inflige 3 de daño a cualquier objetivo.",
+      "fl": "Un rayo de mediodía, afilado a martillo.",
+      "no": "S·03",
+      "texto_plano": "Inflige 3 de daño a cualquier objetivo."
+    },
+    {
+      "id": "s4",
+      "f": "sol",
+      "name": "Forjador de Brasas",
+      "type": "c",
+      "cost": 3,
+      "atk": 3,
+      "hp": 2,
+      "play": [
+        {
+          "do": "damage",
+          "amount": 1,
+          "target": "allEnemies"
+        }
+      ],
+      "text": "<b>Al entrar:</b> inflige 1 de daño a todos los enemigos.",
+      "fl": "Cada golpe de su yunque suelta chispas hacia el otro lado.",
+      "no": "S·04",
+      "texto_plano": "Al entrar: inflige 1 de daño a todos los enemigos."
+    },
+    {
+      "id": "s5",
+      "f": "sol",
+      "name": "Fénix de Cobre",
+      "type": "c",
+      "cost": 4,
+      "atk": 4,
+      "hp": 2,
+      "kw": [
+        "furia"
+      ],
+      "dia": 1,
+      "text": "<b>Furia.</b> <b>Día:</b> +1 ataque.",
+      "fl": "Metal que recuerda haber sido ave.",
+      "no": "S·05",
+      "texto_plano": "Furia. Día: +1 ataque."
+    },
+    {
+      "id": "s6",
+      "f": "sol",
+      "name": "Llamarada",
+      "type": "h",
+      "cost": 4,
+      "play": [
+        {
+          "do": "damage",
+          "amount": 2,
+          "target": "allEnemyCreatures"
+        }
+      ],
+      "text": "Inflige 2 de daño a todas las criaturas enemigas.",
+      "fl": "",
+      "no": "S·06",
+      "texto_plano": "Inflige 2 de daño a todas las criaturas enemigas."
+    },
+    {
+      "id": "s7",
+      "f": "sol",
+      "name": "Centinela Dorado",
+      "type": "c",
+      "cost": 5,
+      "atk": 4,
+      "hp": 5,
+      "kw": [
+        "guardian",
+        "escudo"
+      ],
+      "text": "<b>Guardián.</b> <b>Escudo.</b>",
+      "fl": "Lleva siglos guardando una puerta que ya no existe.",
+      "no": "S·07",
+      "texto_plano": "Guardián. Escudo."
+    },
+    {
+      "id": "s8",
+      "f": "sol",
+      "name": "Corona del Cenit",
+      "type": "c",
+      "cost": 7,
+      "atk": 6,
+      "hp": 6,
+      "kw": [
+        "furia"
+      ],
+      "play": [
+        {
+          "do": "setPhase",
+          "value": "dia"
+        },
+        {
+          "do": "damage",
+          "amount": 2,
+          "target": "enemyHero"
+        }
+      ],
+      "text": "<b>Furia.</b> <b>Al entrar:</b> la fase pasa a Día e inflige 2 de daño al héroe rival.",
+      "fl": "Cuando despliega las alas, es mediodía.",
+      "no": "S·08",
+      "texto_plano": "Furia. Al entrar: la fase pasa a Día e inflige 2 de daño al héroe rival."
+    },
+    {
+      "id": "m1",
+      "f": "marea",
+      "name": "Perla Viva",
+      "type": "c",
+      "cost": 1,
+      "atk": 1,
+      "hp": 3,
+      "kw": [
+        "guardian"
+      ],
+      "text": "<b>Guardián.</b>",
+      "fl": "Dura por fuera. Terca por dentro.",
+      "no": "M·01",
+      "texto_plano": "Guardián."
+    },
+    {
+      "id": "m2",
+      "f": "marea",
+      "name": "Oráculo de Espuma",
+      "type": "c",
+      "cost": 2,
+      "atk": 1,
+      "hp": 2,
+      "play": [
+        {
+          "do": "draw",
+          "n": 1
+        }
+      ],
+      "text": "<b>Al entrar:</b> roba 1 carta.",
+      "fl": "Lee el futuro en las burbujas que revientan.",
+      "no": "M·02",
+      "texto_plano": "Al entrar: roba 1 carta."
+    },
+    {
+      "id": "m3",
+      "f": "marea",
+      "name": "Marea Sanadora",
+      "type": "h",
+      "cost": 2,
+      "play": [
+        {
+          "do": "heal",
+          "amount": 4,
+          "target": "ownHero"
+        },
+        {
+          "do": "draw",
+          "n": 1
+        }
+      ],
+      "text": "Restaura 4 de vida a tu héroe. Roba 1 carta.",
+      "fl": "",
+      "no": "M·03",
+      "texto_plano": "Restaura 4 de vida a tu héroe. Roba 1 carta."
+    },
+    {
+      "id": "m4",
+      "f": "marea",
+      "name": "Anguila Voltaica",
+      "type": "c",
+      "cost": 3,
+      "atk": 2,
+      "hp": 2,
+      "kw": [
+        "veneno"
+      ],
+      "text": "<b>Veneno.</b>",
+      "fl": "Un roce basta.",
+      "no": "M·04",
+      "texto_plano": "Veneno."
+    },
+    {
+      "id": "m5",
+      "f": "marea",
+      "name": "Custodio de Coral",
+      "type": "c",
+      "cost": 4,
+      "atk": 2,
+      "hp": 6,
+      "kw": [
+        "guardian"
+      ],
+      "noche": 2,
+      "text": "<b>Guardián.</b> <b>Noche:</b> +2 ataque.",
+      "fl": "De día es arrecife. De noche, muralla con dientes.",
+      "no": "M·05",
+      "texto_plano": "Guardián. Noche: +2 ataque."
+    },
+    {
+      "id": "m6",
+      "f": "marea",
+      "name": "Remolino",
+      "type": "h",
+      "cost": 3,
+      "play": [
+        {
+          "do": "damage",
+          "amount": 3,
+          "target": "enemyCreature"
+        },
+        {
+          "do": "draw",
+          "n": 1
+        }
+      ],
+      "text": "Inflige 3 de daño a una criatura enemiga. Roba 1 carta.",
+      "fl": "",
+      "no": "M·06",
+      "texto_plano": "Inflige 3 de daño a una criatura enemiga. Roba 1 carta."
+    },
+    {
+      "id": "m7",
+      "f": "marea",
+      "name": "Leviatán Dormido",
+      "type": "c",
+      "cost": 6,
+      "atk": 5,
+      "hp": 7,
+      "kw": [
+        "guardian",
+        "vital"
+      ],
+      "text": "<b>Guardián.</b> <b>Robo vital.</b>",
+      "fl": "Si despierta del todo, los mapas tendrán que redibujarse.",
+      "no": "M·07",
+      "texto_plano": "Guardián. Robo vital."
+    },
+    {
+      "id": "m8",
+      "f": "marea",
+      "name": "Canto Abisal",
+      "type": "h",
+      "cost": 5,
+      "play": [
+        {
+          "do": "destroy",
+          "target": "enemyCreature"
+        }
+      ],
+      "text": "Destruye una criatura enemiga.",
+      "fl": "Una nota tan grave que solo la oyen los que se hunden.",
+      "no": "M·08",
+      "texto_plano": "Destruye una criatura enemiga."
+    },
+    {
+      "id": "r1",
+      "f": "raiz",
+      "name": "Brote Tenaz",
+      "type": "c",
+      "cost": 1,
+      "atk": 1,
+      "hp": 2,
+      "death": [
+        {
+          "do": "summon",
+          "token": "t1",
+          "n": 1
+        }
+      ],
+      "text": "<b>Al morir:</b> invoca una Semilla 1/1.",
+      "fl": "Córtalo y crecerá de nuevo.",
+      "no": "R·01",
+      "texto_plano": "Al morir: invoca una Semilla 1/1."
+    },
+    {
+      "id": "r2",
+      "f": "raiz",
+      "name": "Lobo de Musgo",
+      "type": "c",
+      "cost": 2,
+      "atk": 3,
+      "hp": 2,
+      "text": "",
+      "fl": "Caza en silencio; huele a lluvia.",
+      "no": "R·02",
+      "texto_plano": ""
+    },
+    {
+      "id": "r3",
+      "f": "raiz",
+      "name": "Crecer",
+      "type": "h",
+      "cost": 1,
+      "play": [
+        {
+          "do": "buff",
+          "atk": 2,
+          "hp": 2,
+          "target": "friendlyCreature"
+        }
+      ],
+      "text": "Una criatura aliada gana +2/+2.",
+      "fl": "",
+      "no": "R·03",
+      "texto_plano": "Una criatura aliada gana +2/+2."
+    },
+    {
+      "id": "r4",
+      "f": "raiz",
+      "name": "Madre Enjambre",
+      "type": "c",
+      "cost": 3,
+      "atk": 2,
+      "hp": 2,
+      "play": [
+        {
+          "do": "summon",
+          "token": "t1",
+          "n": 2
+        }
+      ],
+      "text": "<b>Al entrar:</b> invoca dos Semillas 1/1.",
+      "fl": "Nunca llega sola.",
+      "no": "R·04",
+      "texto_plano": "Al entrar: invoca dos Semillas 1/1."
+    },
+    {
+      "id": "r5",
+      "f": "raiz",
+      "name": "Ciervo Ancestral",
+      "type": "c",
+      "cost": 4,
+      "atk": 3,
+      "hp": 4,
+      "play": [
+        {
+          "do": "buff",
+          "atk": 1,
+          "hp": 1,
+          "target": "otherFriendly"
+        }
+      ],
+      "text": "<b>Al entrar:</b> tus otras criaturas ganan +1/+1.",
+      "fl": "Donde pisa, el bosque se endereza.",
+      "no": "R·05",
+      "texto_plano": "Al entrar: tus otras criaturas ganan +1/+1."
+    },
+    {
+      "id": "r6",
+      "f": "raiz",
+      "name": "Trenzador de Espinas",
+      "type": "c",
+      "cost": 3,
+      "atk": 2,
+      "hp": 4,
+      "kw": [
+        "guardian"
+      ],
+      "text": "<b>Guardián.</b>",
+      "fl": "Teje zarzas con la paciencia de una abuela.",
+      "no": "R·06",
+      "texto_plano": "Guardián."
+    },
+    {
+      "id": "r7",
+      "f": "raiz",
+      "name": "Coloso de Ceiba",
+      "type": "c",
+      "cost": 6,
+      "atk": 6,
+      "hp": 6,
+      "kw": [
+        "guardian"
+      ],
+      "play": [
+        {
+          "do": "heal",
+          "amount": 4,
+          "target": "ownHero"
+        }
+      ],
+      "text": "<b>Guardián.</b> <b>Al entrar:</b> restaura 4 de vida a tu héroe.",
+      "fl": "El árbol más viejo decidió caminar.",
+      "no": "R·07",
+      "texto_plano": "Guardián. Al entrar: restaura 4 de vida a tu héroe."
+    },
+    {
+      "id": "r8",
+      "f": "raiz",
+      "name": "Despertar del Bosque",
+      "type": "h",
+      "cost": 5,
+      "play": [
+        {
+          "do": "summon",
+          "token": "t2",
+          "n": 3
+        }
+      ],
+      "text": "Invoca tres Espíritus del Bosque 2/2.",
+      "fl": "",
+      "no": "R·08",
+      "texto_plano": "Invoca tres Espíritus del Bosque 2/2."
+    },
+    {
+      "id": "u1",
+      "f": "umbra",
+      "name": "Polilla Nocturna",
+      "type": "c",
+      "cost": 1,
+      "atk": 1,
+      "hp": 2,
+      "noche": 2,
+      "text": "<b>Noche:</b> +2 ataque.",
+      "fl": "Busca la luna. Se conforma con tu cuello.",
+      "no": "U·01",
+      "texto_plano": "Noche: +2 ataque."
+    },
+    {
+      "id": "u2",
+      "f": "umbra",
+      "name": "Acólito Velado",
+      "type": "c",
+      "cost": 2,
+      "atk": 2,
+      "hp": 3,
+      "kw": [
+        "vital"
+      ],
+      "text": "<b>Robo vital.</b>",
+      "fl": "Reza en voz baja, y algo le contesta.",
+      "no": "U·02",
+      "texto_plano": "Robo vital."
+    },
+    {
+      "id": "u3",
+      "f": "umbra",
+      "name": "Susurro",
+      "type": "h",
+      "cost": 1,
+      "play": [
+        {
+          "do": "damage",
+          "amount": 2,
+          "target": "enemyCreature"
+        }
+      ],
+      "text": "Inflige 2 de daño a una criatura enemiga.",
+      "fl": "",
+      "no": "U·03",
+      "texto_plano": "Inflige 2 de daño a una criatura enemiga."
+    },
+    {
+      "id": "u4",
+      "f": "umbra",
+      "name": "Aracne del Umbral",
+      "type": "c",
+      "cost": 3,
+      "atk": 1,
+      "hp": 4,
+      "kw": [
+        "veneno"
+      ],
+      "text": "<b>Veneno.</b>",
+      "fl": "Teje en el borde entre la sombra y la luz.",
+      "no": "U·04",
+      "texto_plano": "Veneno."
+    },
+    {
+      "id": "u5",
+      "f": "umbra",
+      "name": "Espectro Hambriento",
+      "type": "c",
+      "cost": 4,
+      "atk": 3,
+      "hp": 3,
+      "kw": [
+        "vital"
+      ],
+      "noche": 2,
+      "text": "<b>Robo vital.</b> <b>Noche:</b> +2 ataque.",
+      "fl": "",
+      "no": "U·05",
+      "texto_plano": "Robo vital. Noche: +2 ataque."
+    },
+    {
+      "id": "u6",
+      "f": "umbra",
+      "name": "Pacto de Sangre",
+      "type": "h",
+      "cost": 2,
+      "play": [
+        {
+          "do": "selfDamage",
+          "amount": 3
+        },
+        {
+          "do": "draw",
+          "n": 2
+        }
+      ],
+      "text": "Tu héroe pierde 3 de vida. Roba 2 cartas.",
+      "fl": "Firmado con tinta roja, siempre.",
+      "no": "U·06",
+      "texto_plano": "Tu héroe pierde 3 de vida. Roba 2 cartas."
+    },
+    {
+      "id": "u7",
+      "f": "umbra",
+      "name": "Segador Eclipsado",
+      "type": "c",
+      "cost": 5,
+      "atk": 4,
+      "hp": 5,
+      "play": [
+        {
+          "do": "damage",
+          "amount": 2,
+          "target": "otherCreatures"
+        }
+      ],
+      "text": "<b>Al entrar:</b> inflige 2 de daño a todas las demás criaturas.",
+      "fl": "Su guadaña no distingue bandos.",
+      "no": "U·07",
+      "texto_plano": "Al entrar: inflige 2 de daño a todas las demás criaturas."
+    },
+    {
+      "id": "u8",
+      "f": "umbra",
+      "name": "Eclipse Total",
+      "type": "h",
+      "cost": 4,
+      "play": [
+        {
+          "do": "setPhase",
+          "value": "noche"
+        },
+        {
+          "do": "buff",
+          "atk": 1,
+          "hp": 1,
+          "target": "allFriendly"
+        }
+      ],
+      "text": "La fase pasa a Noche. Tus criaturas ganan +1/+1.",
+      "fl": "Por un instante, el sol pierde.",
+      "no": "U·08",
+      "texto_plano": "La fase pasa a Noche. Tus criaturas ganan +1/+1."
+    },
+    {
+      "id": "n1",
+      "f": "neutral",
+      "name": "Mercader de Caminos",
+      "type": "c",
+      "cost": 2,
+      "atk": 2,
+      "hp": 2,
+      "play": [
+        {
+          "do": "energy",
+          "n": 1
+        }
+      ],
+      "text": "<b>Al entrar:</b> ganas 1 brasa este turno.",
+      "fl": "Vende fuego en frascos. Algunos son auténticos.",
+      "no": "N·01",
+      "texto_plano": "Al entrar: ganas 1 brasa este turno."
+    },
+    {
+      "id": "n2",
+      "f": "neutral",
+      "name": "Gólem de Arcilla",
+      "type": "c",
+      "cost": 3,
+      "atk": 3,
+      "hp": 4,
+      "text": "",
+      "fl": "",
+      "no": "N·02",
+      "texto_plano": ""
+    },
+    {
+      "id": "n3",
+      "f": "neutral",
+      "name": "Vigía de Piedra",
+      "type": "c",
+      "cost": 4,
+      "atk": 2,
+      "hp": 7,
+      "kw": [
+        "guardian"
+      ],
+      "text": "<b>Guardián.</b>",
+      "fl": "Lleva tanto tiempo quieto que los pájaros anidan en él.",
+      "no": "N·03",
+      "texto_plano": "Guardián."
+    },
+    {
+      "id": "n4",
+      "f": "neutral",
+      "name": "Titán del Crepúsculo",
+      "type": "c",
+      "cost": 8,
+      "atk": 7,
+      "hp": 7,
+      "kw": [
+        "guardian",
+        "vital"
+      ],
+      "text": "<b>Guardián.</b> <b>Robo vital.</b>",
+      "fl": "Nació en el minuto exacto entre el día y la noche.",
+      "no": "N·04",
+      "texto_plano": "Guardián. Robo vital."
+    },
+    {
+      "id": "t1",
+      "f": "raiz",
+      "name": "Semilla",
+      "type": "c",
+      "cost": 1,
+      "atk": 1,
+      "hp": 1,
+      "token": true,
+      "text": "",
+      "fl": "",
+      "no": "T·01",
+      "texto_plano": ""
+    },
+    {
+      "id": "t2",
+      "f": "raiz",
+      "name": "Espíritu del Bosque",
+      "type": "c",
+      "cost": 2,
+      "atk": 2,
+      "hp": 2,
+      "token": true,
+      "text": "",
+      "fl": "",
+      "no": "T·02",
+      "texto_plano": ""
+    }
+  ],
+  "heroes": {
+    "aurelia": {
+      "f": "sol",
+      "name": "Aurelia",
+      "title": "Forjadora del Alba",
+      "lore": "Herrera del primer amanecer. Templa espadas en la luz del cenit y no conoce la paciencia.",
+      "power": {
+        "name": "Chispa",
+        "cost": 2,
+        "text": "Inflige 1 de daño a cualquier objetivo.",
+        "eff": [
+          {
+            "do": "damage",
+            "amount": 1,
+            "target": "any"
+          }
+        ]
+      }
+    },
+    "nerea": {
+      "f": "marea",
+      "name": "Nerea",
+      "title": "Voz de la Marea",
+      "lore": "Escucha lo que las mareas recuerdan. Gana las guerras largas.",
+      "power": {
+        "name": "Bruma sanadora",
+        "cost": 2,
+        "text": "Restaura 3 de vida a tu héroe.",
+        "eff": [
+          {
+            "do": "heal",
+            "amount": 3,
+            "target": "ownHero"
+          }
+        ]
+      }
+    },
+    "tarn": {
+      "f": "raiz",
+      "name": "Tarn",
+      "title": "Guardián de la Raíz",
+      "lore": "Su barba es un bosque y su paciencia, una estación entera.",
+      "power": {
+        "name": "Germinar",
+        "cost": 2,
+        "text": "Invoca una Semilla 1/1.",
+        "eff": [
+          {
+            "do": "summon",
+            "token": "t1",
+            "n": 1
+          }
+        ]
+      }
+    },
+    "vesper": {
+      "f": "umbra",
+      "name": "Vesper",
+      "title": "la Sombra Quieta",
+      "lore": "Paga cada secreto con un poco de su propia sangre, y siempre le queda uno más.",
+      "power": {
+        "name": "Pacto menor",
+        "cost": 2,
+        "text": "Tu héroe pierde 2 de vida. Roba 1 carta.",
+        "eff": [
+          {
+            "do": "selfDamage",
+            "amount": 2
+          },
+          {
+            "do": "draw",
+            "n": 1
+          }
+        ]
+      }
+    }
+  },
+  "palabras_clave": {
+    "guardian": {
+      "n": "Guardián",
+      "d": "Los enemigos deben atacar a esta criatura antes que a cualquier otro objetivo."
+    },
+    "furia": {
+      "n": "Furia",
+      "d": "Puede atacar el mismo turno en que entra."
+    },
+    "escudo": {
+      "n": "Escudo",
+      "d": "Ignora la primera vez que recibiría daño."
+    },
+    "veneno": {
+      "n": "Veneno",
+      "d": "Destruye a cualquier criatura a la que inflija daño."
+    },
+    "vital": {
+      "n": "Robo vital",
+      "d": "El daño que inflige cura a su héroe."
+    }
+  },
+  "facciones": {
+    "sol": {
+      "nombre": "Sol",
+      "color": "#f08a3c",
+      "descripcion": "Agresiva: daño directo, Furia y fuerza de Día."
+    },
+    "marea": {
+      "nombre": "Marea",
+      "color": "#4cc3c9",
+      "descripcion": "Control: guardianes, curación y robo de cartas."
+    },
+    "raiz": {
+      "nombre": "Raíz",
+      "color": "#8cc152",
+      "descripcion": "Enjambre: muchas criaturas y refuerzos."
+    },
+    "umbra": {
+      "nombre": "Umbra",
+      "color": "#b184f0",
+      "descripcion": "Noche: veneno, robo vital y pactos de sangre."
+    },
+    "neutral": {
+      "nombre": "Neutral",
+      "color": "#c9bfa8",
+      "descripcion": "Cartas que entran en cualquier mazo."
+    }
+  }
+}

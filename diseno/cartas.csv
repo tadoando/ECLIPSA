@@ -1,0 +1,39 @@
+﻿numero,id,nombre,faccion,tipo,coste,ataque,vida,palabras_clave,bono_dia,bono_noche,texto,ambientacion
+S-01,s1,Chispa Errante,Sol,Criatura,1,2,1,Furia,,,Furia.,Nadie sabe de qué hoguera escapó. Ella tampoco.
+S-02,s2,Heraldo del Alba,Sol,Criatura,2,2,3,,1,,Día: +1 ataque.,"Su trompeta despierta al sol, o eso asegura."
+S-03,s3,Lanza Solar,Sol,Hechizo,2,,,,,,Inflige 3 de daño a cualquier objetivo.,"Un rayo de mediodía, afilado a martillo."
+S-04,s4,Forjador de Brasas,Sol,Criatura,3,3,2,,,,Al entrar: inflige 1 de daño a todos los enemigos.,Cada golpe de su yunque suelta chispas hacia el otro lado.
+S-05,s5,Fénix de Cobre,Sol,Criatura,4,4,2,Furia,1,,Furia. Día: +1 ataque.,Metal que recuerda haber sido ave.
+S-06,s6,Llamarada,Sol,Hechizo,4,,,,,,Inflige 2 de daño a todas las criaturas enemigas.,
+S-07,s7,Centinela Dorado,Sol,Criatura,5,4,5,"Guardián, Escudo",,,Guardián. Escudo.,Lleva siglos guardando una puerta que ya no existe.
+S-08,s8,Corona del Cenit,Sol,Criatura,7,6,6,Furia,,,Furia. Al entrar: la fase pasa a Día e inflige 2 de daño al héroe rival.,"Cuando despliega las alas, es mediodía."
+M-01,m1,Perla Viva,Marea,Criatura,1,1,3,Guardián,,,Guardián.,Dura por fuera. Terca por dentro.
+M-02,m2,Oráculo de Espuma,Marea,Criatura,2,1,2,,,,Al entrar: roba 1 carta.,Lee el futuro en las burbujas que revientan.
+M-03,m3,Marea Sanadora,Marea,Hechizo,2,,,,,,Restaura 4 de vida a tu héroe. Roba 1 carta.,
+M-04,m4,Anguila Voltaica,Marea,Criatura,3,2,2,Veneno,,,Veneno.,Un roce basta.
+M-05,m5,Custodio de Coral,Marea,Criatura,4,2,6,Guardián,,2,Guardián. Noche: +2 ataque.,"De día es arrecife. De noche, muralla con dientes."
+M-06,m6,Remolino,Marea,Hechizo,3,,,,,,Inflige 3 de daño a una criatura enemiga. Roba 1 carta.,
+M-07,m7,Leviatán Dormido,Marea,Criatura,6,5,7,"Guardián, Robo vital",,,Guardián. Robo vital.,"Si despierta del todo, los mapas tendrán que redibujarse."
+M-08,m8,Canto Abisal,Marea,Hechizo,5,,,,,,Destruye una criatura enemiga.,Una nota tan grave que solo la oyen los que se hunden.
+R-01,r1,Brote Tenaz,Raíz,Criatura,1,1,2,,,,Al morir: invoca una Semilla 1/1.,Córtalo y crecerá de nuevo.
+R-02,r2,Lobo de Musgo,Raíz,Criatura,2,3,2,,,,,Caza en silencio; huele a lluvia.
+R-03,r3,Crecer,Raíz,Hechizo,1,,,,,,Una criatura aliada gana +2/+2.,
+R-04,r4,Madre Enjambre,Raíz,Criatura,3,2,2,,,,Al entrar: invoca dos Semillas 1/1.,Nunca llega sola.
+R-05,r5,Ciervo Ancestral,Raíz,Criatura,4,3,4,,,,Al entrar: tus otras criaturas ganan +1/+1.,"Donde pisa, el bosque se endereza."
+R-06,r6,Trenzador de Espinas,Raíz,Criatura,3,2,4,Guardián,,,Guardián.,Teje zarzas con la paciencia de una abuela.
+R-07,r7,Coloso de Ceiba,Raíz,Criatura,6,6,6,Guardián,,,Guardián. Al entrar: restaura 4 de vida a tu héroe.,El árbol más viejo decidió caminar.
+R-08,r8,Despertar del Bosque,Raíz,Hechizo,5,,,,,,Invoca tres Espíritus del Bosque 2/2.,
+U-01,u1,Polilla Nocturna,Umbra,Criatura,1,1,2,,,2,Noche: +2 ataque.,Busca la luna. Se conforma con tu cuello.
+U-02,u2,Acólito Velado,Umbra,Criatura,2,2,3,Robo vital,,,Robo vital.,"Reza en voz baja, y algo le contesta."
+U-03,u3,Susurro,Umbra,Hechizo,1,,,,,,Inflige 2 de daño a una criatura enemiga.,
+U-04,u4,Aracne del Umbral,Umbra,Criatura,3,1,4,Veneno,,,Veneno.,Teje en el borde entre la sombra y la luz.
+U-05,u5,Espectro Hambriento,Umbra,Criatura,4,3,3,Robo vital,,2,Robo vital. Noche: +2 ataque.,
+U-06,u6,Pacto de Sangre,Umbra,Hechizo,2,,,,,,Tu héroe pierde 3 de vida. Roba 2 cartas.,"Firmado con tinta roja, siempre."
+U-07,u7,Segador Eclipsado,Umbra,Criatura,5,4,5,,,,Al entrar: inflige 2 de daño a todas las demás criaturas.,Su guadaña no distingue bandos.
+U-08,u8,Eclipse Total,Umbra,Hechizo,4,,,,,,La fase pasa a Noche. Tus criaturas ganan +1/+1.,"Por un instante, el sol pierde."
+N-01,n1,Mercader de Caminos,Neutral,Criatura,2,2,2,,,,Al entrar: ganas 1 brasa este turno.,Vende fuego en frascos. Algunos son auténticos.
+N-02,n2,Gólem de Arcilla,Neutral,Criatura,3,3,4,,,,,
+N-03,n3,Vigía de Piedra,Neutral,Criatura,4,2,7,Guardián,,,Guardián.,Lleva tanto tiempo quieto que los pájaros anidan en él.
+N-04,n4,Titán del Crepúsculo,Neutral,Criatura,8,7,7,"Guardián, Robo vital",,,Guardián. Robo vital.,Nació en el minuto exacto entre el día y la noche.
+T-01,t1,Semilla,Raíz,Ficha,1,1,1,,,,,
+T-02,t2,Espíritu del Bosque,Raíz,Ficha,2,2,2,,,,,
