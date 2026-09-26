@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "effect.schema.json",
+  "title": "Efecto de Eclipsia",
+  "description": "Un paso de efecto. Ver docs/05-motor-de-efectos.md.",
+  "$defs": {
+    "target": { "enum": ["any", "enemy", "enemyCreature", "friendlyCreature", "anyCreature", "enemyHero", "ownHero", "allEnemyCreatures", "allEnemies", "otherCreatures", "otherFriendly", "allFriendly"] }
+  },
+  "oneOf": [
+    { "type": "object", "properties": { "do": { "const": "damage" }, "amount": { "type": "integer", "minimum": 1 }, "target": { "$ref": "#/$defs/target" } }, "required": ["do", "amount", "target"], "additionalProperties": false },
+    { "type": "object", "properties": { "do": { "const": "heal" }, "amount": { "type": "integer", "minimum": 1 }, "target": { "$ref": "#/$defs/target" } }, "required": ["do", "amount", "target"], "additionalProperties": false },
+    { "type": "object", "properties": { "do": { "const": "draw" }, "n": { "type": "integer", "minimum": 1 } }, "required": ["do", "n"], "additionalProperties": false },
+    { "type": "object", "properties": { "do": { "const": "buff" }, "atk": { "type": "integer" }, "hp": { "type": "integer" }, "target": { "$ref": "#/$defs/target" } }, "required": ["do", "atk", "hp", "target"], "additionalProperties": false },
+    { "type": "object", "properties": { "do": { "const": "summon" }, "token": { "type": "string" }, "n": { "type": "integer", "minimum": 1 } }, "required": ["do", "token", "n"], "additionalProperties": false },
+    { "type": "object", "properties": { "do": { "const": "destroy" }, "target": { "$ref": "#/$defs/target" } }, "required": ["do", "target"], "additionalProperties": false },
+    { "type": "object", "properties": { "do": { "const": "energy" }, "n": { "type": "integer", "minimum": 1 } }, "required": ["do", "n"], "additionalProperties": false },
+    { "type": "object", "properties": { "do": { "const": "setPhase" }, "value": { "enum": ["dia", "noche"] } }, "required": ["do", "value"], "additionalProperties": false },
+    { "type": "object", "properties": { "do": { "const": "selfDamage" }, "amount": { "type": "integer", "minimum": 1 } }, "required": ["do", "amount"], "additionalProperties": false }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "version": "0.1.0",
+  "startingHealth": 25,
+  "deckComposition": {
+    "factionCopies": 2,
+    "neutralCopies": 1
+  },
+  "startingHand": {
+    "first": 3,
+    "second": 4
+  },
+  "maxEnergy": 10,
+  "maxHand": 9,
+  "maxBoard": 6,
+  "powerCost": 2,
+  "phaseStart": "dia",
+  "phaseAlternatesEachRound": true
+}

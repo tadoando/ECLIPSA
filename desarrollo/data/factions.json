@@ -1,0 +1,47 @@
+[
+  {
+    "id": "sol",
+    "name": "Sol",
+    "code": "S",
+    "color": "#f08a3c",
+    "colorDark": "#5a2414",
+    "colorDeep": "#2a1020",
+    "description": "Agresiva: daño directo, Furia y fuerza de Día."
+  },
+  {
+    "id": "marea",
+    "name": "Marea",
+    "code": "M",
+    "color": "#4cc3c9",
+    "colorDark": "#0f3a4a",
+    "colorDeep": "#0b1a2e",
+    "description": "Control: guardianes, curación y robo de cartas."
+  },
+  {
+    "id": "raiz",
+    "name": "Raíz",
+    "code": "R",
+    "color": "#8cc152",
+    "colorDark": "#26401f",
+    "colorDeep": "#121e17",
+    "description": "Enjambre: muchas criaturas y refuerzos."
+  },
+  {
+    "id": "umbra",
+    "name": "Umbra",
+    "code": "U",
+    "color": "#b184f0",
+    "colorDark": "#2e1d4d",
+    "colorDeep": "#120d22",
+    "description": "Noche: veneno, robo vital y pactos de sangre."
+  },
+  {
+    "id": "neutral",
+    "name": "Neutral",
+    "code": "N",
+    "color": "#c9bfa8",
+    "colorDark": "#3a3530",
+    "colorDeep": "#1c1a1f",
+    "description": "Cartas que entran en cualquier mazo."
+  }
+]

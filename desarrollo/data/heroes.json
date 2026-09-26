@@ -1,0 +1,81 @@
+[
+  {
+    "id": "aurelia",
+    "faction": "sol",
+    "name": "Aurelia",
+    "title": "Forjadora del Alba",
+    "lore": "Herrera del primer amanecer. Templa espadas en la luz del cenit y no conoce la paciencia.",
+    "power": {
+      "name": "Chispa",
+      "cost": 2,
+      "text": "Inflige 1 de daño a cualquier objetivo.",
+      "effects": [
+        {
+          "do": "damage",
+          "amount": 1,
+          "target": "any"
+        }
+      ]
+    }
+  },
+  {
+    "id": "nerea",
+    "faction": "marea",
+    "name": "Nerea",
+    "title": "Voz de la Marea",
+    "lore": "Escucha lo que las mareas recuerdan. Gana las guerras largas.",
+    "power": {
+      "name": "Bruma sanadora",
+      "cost": 2,
+      "text": "Restaura 3 de vida a tu héroe.",
+      "effects": [
+        {
+          "do": "heal",
+          "amount": 3,
+          "target": "ownHero"
+        }
+      ]
+    }
+  },
+  {
+    "id": "tarn",
+    "faction": "raiz",
+    "name": "Tarn",
+    "title": "Guardián de la Raíz",
+    "lore": "Su barba es un bosque y su paciencia, una estación entera.",
+    "power": {
+      "name": "Germinar",
+      "cost": 2,
+      "text": "Invoca una Semilla 1/1.",
+      "effects": [
+        {
+          "do": "summon",
+          "token": "t1",
+          "n": 1
+        }
+      ]
+    }
+  },
+  {
+    "id": "vesper",
+    "faction": "umbra",
+    "name": "Vesper",
+    "title": "la Sombra Quieta",
+    "lore": "Paga cada secreto con un poco de su propia sangre, y siempre le queda uno más.",
+    "power": {
+      "name": "Pacto menor",
+      "cost": 2,
+      "text": "Tu héroe pierde 2 de vida. Roba 1 carta.",
+      "effects": [
+        {
+          "do": "selfDamage",
+          "amount": 2
+        },
+        {
+          "do": "draw",
+          "n": 1
+        }
+      ]
+    }
+  }
+]

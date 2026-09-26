@@ -1,0 +1,27 @@
+[
+  {
+    "id": "guardian",
+    "name": "Guardián",
+    "description": "Los enemigos deben atacar a esta criatura antes que a cualquier otro objetivo."
+  },
+  {
+    "id": "furia",
+    "name": "Furia",
+    "description": "Puede atacar el mismo turno en que entra."
+  },
+  {
+    "id": "escudo",
+    "name": "Escudo",
+    "description": "Ignora la primera vez que recibiría daño."
+  },
+  {
+    "id": "veneno",
+    "name": "Veneno",
+    "description": "Destruye a cualquier criatura a la que inflija daño."
+  },
+  {
+    "id": "vital",
+    "name": "Robo vital",
+    "description": "El daño que inflige cura a su héroe."
+  }
+]

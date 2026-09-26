@@ -1,0 +1,645 @@
+[
+  {
+    "id": "s1",
+    "collector": "S-01",
+    "name": "Chispa Errante",
+    "faction": "sol",
+    "type": "creature",
+    "cost": 1,
+    "attack": 2,
+    "health": 1,
+    "keywords": [
+      "furia"
+    ],
+    "text": "Furia.",
+    "flavor": "Nadie sabe de qué hoguera escapó. Ella tampoco."
+  },
+  {
+    "id": "s2",
+    "collector": "S-02",
+    "name": "Heraldo del Alba",
+    "faction": "sol",
+    "type": "creature",
+    "cost": 2,
+    "attack": 2,
+    "health": 3,
+    "dayBonus": 1,
+    "text": "Día: +1 ataque.",
+    "flavor": "Su trompeta despierta al sol, o eso asegura."
+  },
+  {
+    "id": "s3",
+    "collector": "S-03",
+    "name": "Lanza Solar",
+    "faction": "sol",
+    "type": "spell",
+    "cost": 2,
+    "onPlay": [
+      {
+        "do": "damage",
+        "amount": 3,
+        "target": "any"
+      }
+    ],
+    "text": "Inflige 3 de daño a cualquier objetivo.",
+    "flavor": "Un rayo de mediodía, afilado a martillo."
+  },
+  {
+    "id": "s4",
+    "collector": "S-04",
+    "name": "Forjador de Brasas",
+    "faction": "sol",
+    "type": "creature",
+    "cost": 3,
+    "attack": 3,
+    "health": 2,
+    "onPlay": [
+      {
+        "do": "damage",
+        "amount": 1,
+        "target": "allEnemies"
+      }
+    ],
+    "text": "Al entrar: inflige 1 de daño a todos los enemigos.",
+    "flavor": "Cada golpe de su yunque suelta chispas hacia el otro lado."
+  },
+  {
+    "id": "s5",
+    "collector": "S-05",
+    "name": "Fénix de Cobre",
+    "faction": "sol",
+    "type": "creature",
+    "cost": 4,
+    "attack": 4,
+    "health": 2,
+    "keywords": [
+      "furia"
+    ],
+    "dayBonus": 1,
+    "text": "Furia. Día: +1 ataque.",
+    "flavor": "Metal que recuerda haber sido ave."
+  },
+  {
+    "id": "s6",
+    "collector": "S-06",
+    "name": "Llamarada",
+    "faction": "sol",
+    "type": "spell",
+    "cost": 4,
+    "onPlay": [
+      {
+        "do": "damage",
+        "amount": 2,
+        "target": "allEnemyCreatures"
+      }
+    ],
+    "text": "Inflige 2 de daño a todas las criaturas enemigas.",
+    "flavor": ""
+  },
+  {
+    "id": "s7",
+    "collector": "S-07",
+    "name": "Centinela Dorado",
+    "faction": "sol",
+    "type": "creature",
+    "cost": 5,
+    "attack": 4,
+    "health": 5,
+    "keywords": [
+      "guardian",
+      "escudo"
+    ],
+    "text": "Guardián. Escudo.",
+    "flavor": "Lleva siglos guardando una puerta que ya no existe."
+  },
+  {
+    "id": "s8",
+    "collector": "S-08",
+    "name": "Corona del Cenit",
+    "faction": "sol",
+    "type": "creature",
+    "cost": 7,
+    "attack": 6,
+    "health": 6,
+    "keywords": [
+      "furia"
+    ],
+    "onPlay": [
+      {
+        "do": "setPhase",
+        "value": "dia"
+      },
+      {
+        "do": "damage",
+        "amount": 2,
+        "target": "enemyHero"
+      }
+    ],
+    "text": "Furia. Al entrar: la fase pasa a Día e inflige 2 de daño al héroe rival.",
+    "flavor": "Cuando despliega las alas, es mediodía."
+  },
+  {
+    "id": "m1",
+    "collector": "M-01",
+    "name": "Perla Viva",
+    "faction": "marea",
+    "type": "creature",
+    "cost": 1,
+    "attack": 1,
+    "health": 3,
+    "keywords": [
+      "guardian"
+    ],
+    "text": "Guardián.",
+    "flavor": "Dura por fuera. Terca por dentro."
+  },
+  {
+    "id": "m2",
+    "collector": "M-02",
+    "name": "Oráculo de Espuma",
+    "faction": "marea",
+    "type": "creature",
+    "cost": 2,
+    "attack": 1,
+    "health": 2,
+    "onPlay": [
+      {
+        "do": "draw",
+        "n": 1
+      }
+    ],
+    "text": "Al entrar: roba 1 carta.",
+    "flavor": "Lee el futuro en las burbujas que revientan."
+  },
+  {
+    "id": "m3",
+    "collector": "M-03",
+    "name": "Marea Sanadora",
+    "faction": "marea",
+    "type": "spell",
+    "cost": 2,
+    "onPlay": [
+      {
+        "do": "heal",
+        "amount": 4,
+        "target": "ownHero"
+      },
+      {
+        "do": "draw",
+        "n": 1
+      }
+    ],
+    "text": "Restaura 4 de vida a tu héroe. Roba 1 carta.",
+    "flavor": ""
+  },
+  {
+    "id": "m4",
+    "collector": "M-04",
+    "name": "Anguila Voltaica",
+    "faction": "marea",
+    "type": "creature",
+    "cost": 3,
+    "attack": 2,
+    "health": 2,
+    "keywords": [
+      "veneno"
+    ],
+    "text": "Veneno.",
+    "flavor": "Un roce basta."
+  },
+  {
+    "id": "m5",
+    "collector": "M-05",
+    "name": "Custodio de Coral",
+    "faction": "marea",
+    "type": "creature",
+    "cost": 4,
+    "attack": 2,
+    "health": 6,
+    "keywords": [
+      "guardian"
+    ],
+    "nightBonus": 2,
+    "text": "Guardián. Noche: +2 ataque.",
+    "flavor": "De día es arrecife. De noche, muralla con dientes."
+  },
+  {
+    "id": "m6",
+    "collector": "M-06",
+    "name": "Remolino",
+    "faction": "marea",
+    "type": "spell",
+    "cost": 3,
+    "onPlay": [
+      {
+        "do": "damage",
+        "amount": 3,
+        "target": "enemyCreature"
+      },
+      {
+        "do": "draw",
+        "n": 1
+      }
+    ],
+    "text": "Inflige 3 de daño a una criatura enemiga. Roba 1 carta.",
+    "flavor": ""
+  },
+  {
+    "id": "m7",
+    "collector": "M-07",
+    "name": "Leviatán Dormido",
+    "faction": "marea",
+    "type": "creature",
+    "cost": 6,
+    "attack": 5,
+    "health": 7,
+    "keywords": [
+      "guardian",
+      "vital"
+    ],
+    "text": "Guardián. Robo vital.",
+    "flavor": "Si despierta del todo, los mapas tendrán que redibujarse."
+  },
+  {
+    "id": "m8",
+    "collector": "M-08",
+    "name": "Canto Abisal",
+    "faction": "marea",
+    "type": "spell",
+    "cost": 5,
+    "onPlay": [
+      {
+        "do": "destroy",
+        "target": "enemyCreature"
+      }
+    ],
+    "text": "Destruye una criatura enemiga.",
+    "flavor": "Una nota tan grave que solo la oyen los que se hunden."
+  },
+  {
+    "id": "r1",
+    "collector": "R-01",
+    "name": "Brote Tenaz",
+    "faction": "raiz",
+    "type": "creature",
+    "cost": 1,
+    "attack": 1,
+    "health": 2,
+    "onDeath": [
+      {
+        "do": "summon",
+        "token": "t1",
+        "n": 1
+      }
+    ],
+    "text": "Al morir: invoca una Semilla 1/1.",
+    "flavor": "Córtalo y crecerá de nuevo."
+  },
+  {
+    "id": "r2",
+    "collector": "R-02",
+    "name": "Lobo de Musgo",
+    "faction": "raiz",
+    "type": "creature",
+    "cost": 2,
+    "attack": 3,
+    "health": 2,
+    "text": "",
+    "flavor": "Caza en silencio; huele a lluvia."
+  },
+  {
+    "id": "r3",
+    "collector": "R-03",
+    "name": "Crecer",
+    "faction": "raiz",
+    "type": "spell",
+    "cost": 1,
+    "onPlay": [
+      {
+        "do": "buff",
+        "atk": 2,
+        "hp": 2,
+        "target": "friendlyCreature"
+      }
+    ],
+    "text": "Una criatura aliada gana +2/+2.",
+    "flavor": ""
+  },
+  {
+    "id": "r4",
+    "collector": "R-04",
+    "name": "Madre Enjambre",
+    "faction": "raiz",
+    "type": "creature",
+    "cost": 3,
+    "attack": 2,
+    "health": 2,
+    "onPlay": [
+      {
+        "do": "summon",
+        "token": "t1",
+        "n": 2
+      }
+    ],
+    "text": "Al entrar: invoca dos Semillas 1/1.",
+    "flavor": "Nunca llega sola."
+  },
+  {
+    "id": "r5",
+    "collector": "R-05",
+    "name": "Ciervo Ancestral",
+    "faction": "raiz",
+    "type": "creature",
+    "cost": 4,
+    "attack": 3,
+    "health": 4,
+    "onPlay": [
+      {
+        "do": "buff",
+        "atk": 1,
+        "hp": 1,
+        "target": "otherFriendly"
+      }
+    ],
+    "text": "Al entrar: tus otras criaturas ganan +1/+1.",
+    "flavor": "Donde pisa, el bosque se endereza."
+  },
+  {
+    "id": "r6",
+    "collector": "R-06",
+    "name": "Trenzador de Espinas",
+    "faction": "raiz",
+    "type": "creature",
+    "cost": 3,
+    "attack": 2,
+    "health": 4,
+    "keywords": [
+      "guardian"
+    ],
+    "text": "Guardián.",
+    "flavor": "Teje zarzas con la paciencia de una abuela."
+  },
+  {
+    "id": "r7",
+    "collector": "R-07",
+    "name": "Coloso de Ceiba",
+    "faction": "raiz",
+    "type": "creature",
+    "cost": 6,
+    "attack": 6,
+    "health": 6,
+    "keywords": [
+      "guardian"
+    ],
+    "onPlay": [
+      {
+        "do": "heal",
+        "amount": 4,
+        "target": "ownHero"
+      }
+    ],
+    "text": "Guardián. Al entrar: restaura 4 de vida a tu héroe.",
+    "flavor": "El árbol más viejo decidió caminar."
+  },
+  {
+    "id": "r8",
+    "collector": "R-08",
+    "name": "Despertar del Bosque",
+    "faction": "raiz",
+    "type": "spell",
+    "cost": 5,
+    "onPlay": [
+      {
+        "do": "summon",
+        "token": "t2",
+        "n": 3
+      }
+    ],
+    "text": "Invoca tres Espíritus del Bosque 2/2.",
+    "flavor": ""
+  },
+  {
+    "id": "u1",
+    "collector": "U-01",
+    "name": "Polilla Nocturna",
+    "faction": "umbra",
+    "type": "creature",
+    "cost": 1,
+    "attack": 1,
+    "health": 2,
+    "nightBonus": 2,
+    "text": "Noche: +2 ataque.",
+    "flavor": "Busca la luna. Se conforma con tu cuello."
+  },
+  {
+    "id": "u2",
+    "collector": "U-02",
+    "name": "Acólito Velado",
+    "faction": "umbra",
+    "type": "creature",
+    "cost": 2,
+    "attack": 2,
+    "health": 3,
+    "keywords": [
+      "vital"
+    ],
+    "text": "Robo vital.",
+    "flavor": "Reza en voz baja, y algo le contesta."
+  },
+  {
+    "id": "u3",
+    "collector": "U-03",
+    "name": "Susurro",
+    "faction": "umbra",
+    "type": "spell",
+    "cost": 1,
+    "onPlay": [
+      {
+        "do": "damage",
+        "amount": 2,
+        "target": "enemyCreature"
+      }
+    ],
+    "text": "Inflige 2 de daño a una criatura enemiga.",
+    "flavor": ""
+  },
+  {
+    "id": "u4",
+    "collector": "U-04",
+    "name": "Aracne del Umbral",
+    "faction": "umbra",
+    "type": "creature",
+    "cost": 3,
+    "attack": 1,
+    "health": 4,
+    "keywords": [
+      "veneno"
+    ],
+    "text": "Veneno.",
+    "flavor": "Teje en el borde entre la sombra y la luz."
+  },
+  {
+    "id": "u5",
+    "collector": "U-05",
+    "name": "Espectro Hambriento",
+    "faction": "umbra",
+    "type": "creature",
+    "cost": 4,
+    "attack": 3,
+    "health": 3,
+    "keywords": [
+      "vital"
+    ],
+    "nightBonus": 2,
+    "text": "Robo vital. Noche: +2 ataque.",
+    "flavor": ""
+  },
+  {
+    "id": "u6",
+    "collector": "U-06",
+    "name": "Pacto de Sangre",
+    "faction": "umbra",
+    "type": "spell",
+    "cost": 2,
+    "onPlay": [
+      {
+        "do": "selfDamage",
+        "amount": 3
+      },
+      {
+        "do": "draw",
+        "n": 2
+      }
+    ],
+    "text": "Tu héroe pierde 3 de vida. Roba 2 cartas.",
+    "flavor": "Firmado con tinta roja, siempre."
+  },
+  {
+    "id": "u7",
+    "collector": "U-07",
+    "name": "Segador Eclipsado",
+    "faction": "umbra",
+    "type": "creature",
+    "cost": 5,
+    "attack": 4,
+    "health": 5,
+    "onPlay": [
+      {
+        "do": "damage",
+        "amount": 2,
+        "target": "otherCreatures"
+      }
+    ],
+    "text": "Al entrar: inflige 2 de daño a todas las demás criaturas.",
+    "flavor": "Su guadaña no distingue bandos."
+  },
+  {
+    "id": "u8",
+    "collector": "U-08",
+    "name": "Eclipse Total",
+    "faction": "umbra",
+    "type": "spell",
+    "cost": 4,
+    "onPlay": [
+      {
+        "do": "setPhase",
+        "value": "noche"
+      },
+      {
+        "do": "buff",
+        "atk": 1,
+        "hp": 1,
+        "target": "allFriendly"
+      }
+    ],
+    "text": "La fase pasa a Noche. Tus criaturas ganan +1/+1.",
+    "flavor": "Por un instante, el sol pierde."
+  },
+  {
+    "id": "n1",
+    "collector": "N-01",
+    "name": "Mercader de Caminos",
+    "faction": "neutral",
+    "type": "creature",
+    "cost": 2,
+    "attack": 2,
+    "health": 2,
+    "onPlay": [
+      {
+        "do": "energy",
+        "n": 1
+      }
+    ],
+    "text": "Al entrar: ganas 1 brasa este turno.",
+    "flavor": "Vende fuego en frascos. Algunos son auténticos."
+  },
+  {
+    "id": "n2",
+    "collector": "N-02",
+    "name": "Gólem de Arcilla",
+    "faction": "neutral",
+    "type": "creature",
+    "cost": 3,
+    "attack": 3,
+    "health": 4,
+    "text": "",
+    "flavor": ""
+  },
+  {
+    "id": "n3",
+    "collector": "N-03",
+    "name": "Vigía de Piedra",
+    "faction": "neutral",
+    "type": "creature",
+    "cost": 4,
+    "attack": 2,
+    "health": 7,
+    "keywords": [
+      "guardian"
+    ],
+    "text": "Guardián.",
+    "flavor": "Lleva tanto tiempo quieto que los pájaros anidan en él."
+  },
+  {
+    "id": "n4",
+    "collector": "N-04",
+    "name": "Titán del Crepúsculo",
+    "faction": "neutral",
+    "type": "creature",
+    "cost": 8,
+    "attack": 7,
+    "health": 7,
+    "keywords": [
+      "guardian",
+      "vital"
+    ],
+    "text": "Guardián. Robo vital.",
+    "flavor": "Nació en el minuto exacto entre el día y la noche."
+  },
+  {
+    "id": "t1",
+    "collector": "T-01",
+    "name": "Semilla",
+    "faction": "raiz",
+    "type": "creature",
+    "cost": 1,
+    "attack": 1,
+    "health": 1,
+    "token": true,
+    "text": "",
+    "flavor": ""
+  },
+  {
+    "id": "t2",
+    "collector": "T-02",
+    "name": "Espíritu del Bosque",
+    "faction": "raiz",
+    "type": "creature",
+    "cost": 2,
+    "attack": 2,
+    "health": 2,
+    "token": true,
+    "text": "",
+    "flavor": ""
+  }
+]

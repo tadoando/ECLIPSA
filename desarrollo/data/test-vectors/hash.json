@@ -1,0 +1,85 @@
+{
+  "state": {
+    "schema": 1,
+    "rulesVersion": "0.1.0",
+    "rng": -1583377226,
+    "players": [
+      {
+        "heroId": "aurelia",
+        "health": 25,
+        "maxHealth": 25,
+        "deck": [
+          "n3",
+          "s5",
+          "s4",
+          "s6",
+          "s2",
+          "s4",
+          "s8",
+          "n2",
+          "s2",
+          "s8",
+          "s3",
+          "s5",
+          "s3",
+          "s1",
+          "n4",
+          "s7"
+        ],
+        "hand": [
+          "n1",
+          "s6",
+          "s7",
+          "s1"
+        ],
+        "board": [],
+        "energy": 1,
+        "maxEnergy": 1,
+        "powerUsed": false,
+        "fatigue": 0
+      },
+      {
+        "heroId": "tarn",
+        "health": 25,
+        "maxHealth": 25,
+        "deck": [
+          "n3",
+          "r6",
+          "r1",
+          "r5",
+          "r5",
+          "r3",
+          "r1",
+          "n4",
+          "n1",
+          "n2",
+          "r3",
+          "r2",
+          "r7",
+          "r2",
+          "r4",
+          "r8"
+        ],
+        "hand": [
+          "r6",
+          "r8",
+          "r4",
+          "r7"
+        ],
+        "board": [],
+        "energy": 0,
+        "maxEnergy": 0,
+        "powerUsed": false,
+        "fatigue": 0
+      }
+    ],
+    "current": 0,
+    "firstPlayer": 0,
+    "round": 1,
+    "turn": 1,
+    "phase": "dia",
+    "winner": null,
+    "nextUid": 1
+  },
+  "hash": "4a39d093"
+}

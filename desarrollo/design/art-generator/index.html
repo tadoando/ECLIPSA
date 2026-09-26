@@ -1,0 +1,10 @@
+<!doctype html><html lang="es"><head><meta charset="utf-8"><title>Eclipsia · generador de arte</title>
+<style>body{background:#15131d;color:#ece6d8;font-family:system-ui;padding:16px}main{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}figure{margin:0}img{width:100%;border-radius:8px}figcaption{font-size:12px;color:#a39db2}</style></head>
+<body><h1>Arte procedural (placeholder)</h1><p>Abre este archivo con un servidor local (por ejemplo <code>npx serve .</code>) porque usa módulos ES. Clic derecho en una imagen para guardarla.</p><main id="m"></main>
+<script type="module">
+import {paint} from './art.js';
+const cards=await (await fetch('../../data/cards.json')).json();const heroes=await (await fetch('../../data/heroes.json')).json();
+const m=document.getElementById('m');
+for(const c of cards){const f=document.createElement('figure');f.innerHTML=`<img src="${paint(c.id,c.faction,c.type==='spell'?'h':'c')}"><figcaption>${c.collector} ${c.name}</figcaption>`;m.append(f)}
+for(const h of heroes){const f=document.createElement('figure');f.innerHTML=`<img src="${paint('h-'+h.id,h.faction,'hero')}"><figcaption>Héroe: ${h.name}</figcaption>`;m.append(f)}
+</script></body></html>

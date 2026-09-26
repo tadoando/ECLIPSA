@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "card.schema.json",
+  "title": "Lista de cartas de Eclipsia (data/cards.json)",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": { "type": "string", "pattern": "^[a-z][a-z0-9]*$", "description": "Identificador estable. Nunca reutilizar ni renombrar." },
+      "collector": { "type": "string", "pattern": "^[SMRUNT]-[0-9]{2}$" },
+      "name": { "type": "string" },
+      "faction": { "enum": ["sol", "marea", "raiz", "umbra", "neutral"] },
+      "type": { "enum": ["creature", "spell"] },
+      "cost": { "type": "integer", "minimum": 0, "maximum": 10 },
+      "attack": { "type": "integer", "minimum": 0 },
+      "health": { "type": "integer", "minimum": 1 },
+      "keywords": { "type": "array", "items": { "enum": ["guardian", "furia", "escudo", "veneno", "vital"] }, "uniqueItems": true },
+      "dayBonus": { "type": "integer", "minimum": 1 },
+      "nightBonus": { "type": "integer", "minimum": 1 },
+      "onPlay": { "type": "array", "items": { "$ref": "effect.schema.json" } },
+      "onDeath": { "type": "array", "items": { "$ref": "effect.schema.json" } },
+      "token": { "type": "boolean" },
+      "text": { "type": "string", "description": "Texto de reglas visible, en español." },
+      "flavor": { "type": "string" }
+    },
+    "required": ["id", "collector", "name", "faction", "type", "cost", "text"],
+    "additionalProperties": false,
+    "if": { "properties": { "type": { "const": "creature" } } },
+    "then": { "required": ["attack", "health"] }
+  }
+}
